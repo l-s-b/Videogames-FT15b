@@ -1,4 +1,4 @@
-const { DataTypes } = require('sequelize');
+const { DataTypes, Sequelize } = require('sequelize');
 // DB Model export and injection to Sequelize
 module.exports = (sequelize) => {
   // Model Definition
@@ -25,11 +25,13 @@ module.exports = (sequelize) => {
       allowNull: false,
     },
     platforms: {
-      type: DataTypes.ARRAY,
+      type: DataTypes.ARRAY(DataTypes.JSON),  // Apparently working!
+      defaultValue: [],
       allowNull: false,
     },
     stores: {
-      type: DataTypes.ARRAY,
+      type: DataTypes.ARRAY(DataTypes.JSON),
+      defaultValue: [],
       allowNull: false,
     },
     created: {

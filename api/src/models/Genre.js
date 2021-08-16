@@ -1,4 +1,4 @@
-const { DataTypes } = require('sequelize');
+const { DataTypes, Sequelize } = require('sequelize');
 // DB Model export and injection to Sequelize
 module.exports = (sequelize) => {
   // Model Definition
