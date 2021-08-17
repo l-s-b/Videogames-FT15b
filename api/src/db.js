@@ -38,5 +38,5 @@ Game_genre.belongsToMany(Videogame, { through: "vg_genre" });
 module.exports = {
   ...sequelize.models, // To be imported as models in routes:
 //                        const { Videogame, Game_genre } = require('./db.js');
-  conn: sequelize,     // To be imported as connection @ "index.js".
+  conn: sequelize,     // To be imported as connection @ 'api/index.js'.
 };

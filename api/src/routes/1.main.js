@@ -1,12 +1,10 @@
 // WORKING!
 const { Router } = require('express');
+const router = Router();
 const axios = require('axios'); // Requiring Backend API request libraries
 require('dotenv').config();
 const { API_KEY } = process.env; // Importing API KEY
-const { Videogame, Game_genre, vg_genre } = require('../db.js'); // Importing DB tables
-const { Op } = require('sequelize'); // Bringing handy Sequelize operators
-const preloaded = require('../preloaded');
-const router = Router();
+const preloaded = require('../preloaded'); // Loading some extra mock videogames
 
 // M A I N   R O U T E (async style) (100 items)
 // With while loop:
