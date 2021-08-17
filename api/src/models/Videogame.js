@@ -24,8 +24,13 @@ module.exports = (sequelize) => {
       type: DataTypes.FLOAT,
       allowNull: false,
     },
-    platforms: {
+    genres: {
       type: DataTypes.ARRAY(DataTypes.JSON),  // Apparently working!
+      defaultValue: [],
+      allowNull: false,
+    },
+    platforms: {
+      type: DataTypes.ARRAY(DataTypes.JSON),
       defaultValue: [],
       allowNull: false,
     },

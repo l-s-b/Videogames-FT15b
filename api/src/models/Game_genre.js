@@ -2,7 +2,7 @@ const { DataTypes, Sequelize } = require('sequelize');
 // DB Model export and injection to Sequelize
 module.exports = (sequelize) => {
   // Model Definition
-  sequelize.define('genre', {
+  sequelize.define('game_genre', {
     id: {
       type: DataTypes.UUID,
       defaultValue: Sequelize.UUIDV4,
