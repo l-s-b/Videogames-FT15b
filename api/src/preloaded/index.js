@@ -1,6 +1,6 @@
 module.exports = [
     {
-    "id": 60,
+    "id": "preloaded1",
     "name": "Tocada Online",
     "background_image": 'https://images.pexels.com/photos/3038122/pexels-photo-3038122.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
     "description": 'The all-time playground classic, finally on mainstream consoles.',
@@ -69,7 +69,7 @@ module.exports = [
         "created": true,
     },
     {
-        "id": 67,
+        "id": "preloaded2",
         "name": "Teto 2: Real Low",
         "background_image": 'https://www.catastrofico.com.ar/web/wp-content/uploads/2012/09/tetopost.jpg',
         "description": "Get away from Teto Medina's hands before he gets you to crouch and stick it in you.",
