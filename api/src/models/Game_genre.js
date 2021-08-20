@@ -4,8 +4,7 @@ module.exports = (sequelize) => {
   // Model Definition
   sequelize.define('game_genre', {
     id: {
-      type: DataTypes.UUID,
-      defaultValue: Sequelize.UUIDV4,
+      type: DataTypes.INTEGER,
       allowNull: false,
       primaryKey: true,
     },
