@@ -9,7 +9,8 @@ const preloaded = require('../preloaded'); // Loading some extra mock videogames
 // M A I N   R O U T E (async style) (100 items)
 // With while loop:
 module.exports = router.get('/videogames', async (req, res) => {
-    try {
+    while(true) {
+        try {
             let finalList = [];
         let previous = await axios.get(`https://api.rawg.io/api/games?key=${API_KEY}`);
         finalList = [...previous.data.results];
@@ -18,9 +19,14 @@ module.exports = router.get('/videogames', async (req, res) => {
             finalList = [...finalList, ...next.data.results,]
             previous = next;
         }
-        console.log('List count: ', finalList.length);
+        // console.log('List count: ', finalList.length);
         return res.json([...finalList, ...preloaded]);
-        } catch(error) {console.log(error)};
+        } catch(e) {
+            e.code === 'ECONNRESET' ?
+            console.log('Connection error. Reloading...')
+            : console.error(e);
+        };
+    }
 
 });
 // Without loop:

@@ -13,14 +13,14 @@ module.exports = router.get("/videogame/:id", async (req, res) => {
     const found = preloaded.find((game) => game.id === id);
     // console.log("Requested ID: " + id + ". Found ID: " + found.id);
     if (found) {
-      console.log('Retrieved from "Preloaded" array');
+      console.log('Retrieved from "Preloaded" array.');
       return res.json(found);
     }
 
     // Is it in the DB? --- WHEN READY, CHECK THAT IT WORKS.
     const db = await Videogame.findByPk(id);
     if (db) {
-      console.log("Retrieved from Database");
+      console.log('Retrieved from Database.');
       return res.json(db);
     }
   } catch {
@@ -28,14 +28,21 @@ module.exports = router.get("/videogame/:id", async (req, res) => {
       //Or maybe is it in the API?
       const result = await axios.get(`https://api.rawg.io/api/games/${id}?key=${API_KEY}`);
       if (result.data) {
-        const resId = result.data.id; // Tell ID parameter from result ID
-        console.log( "Requested ID: " + id + ". Found ID: " + resId + ". RESULTS: " + result.data );
-        if (Number(resId) === Number(id)) {
+        const apiId = result.data.id; // Tell ID parameter from result ID
+        console.log(
+                'Retrieved from API URL.' + '\n' +
+                 "Requested ID:" + id + ". Found ID:" + apiId + ". RESULTS:" + result.data
+                 );
+        if (Number(apiId) === Number(id)) {
           return res.json(result.data);
         } else {
           return res.json("wrong ID!");
         }
       }
-    } catch (e) { console.error(e); }
+    } catch (e) {
+        // console.log(res);
+        e.request?.res?.statusCode === 404 ?
+        res.json('Error 404! No game found with such ID.') : console.error(e);
+        }
   }
 });
