@@ -9,8 +9,9 @@ const preloaded = require('../preloaded'); // Loading some extra mock videogames
 // M A I N   R O U T E (async style) (100 items)
 // With while loop:
 module.exports = router.get('/videogames', async (req, res) => {
-    while(true) {
-        try {
+    let { name, genre, created } = req.query;
+     while(true) { // YES, I KNOW, I CAN EXPLAIN THIS. See below.
+        try { // FIRST, GET ALL 100 ITEMS.
             let finalList = [];
         let previous = await axios.get(`https://api.rawg.io/api/games?key=${API_KEY}`);
         finalList = [...previous.data.results];
@@ -18,10 +19,23 @@ module.exports = router.get('/videogames', async (req, res) => {
             let next = await axios.get(previous.data.next);
             finalList = [...finalList, ...next.data.results,]
             previous = next;
-        }
+        } finalList = [...finalList, ...preloaded]
         // console.log('List count: ', finalList.length);
-        return res.json([...finalList, ...preloaded]);
-        } catch(e) {
+
+    // NAME QUERY (WORKING!)
+        if(name) {
+            name = name.toLowerCase();
+            try {
+                const nameFilter = finalList.filter(
+                    game => game.name?.toLowerCase().includes(name) ||
+                    game.slug?.includes(name));
+                nameFilter.length ? res.json(nameFilter) : res.json("Sorry, no games by that name.");
+                return;
+            } catch(e) {return console.error(e);}
+
+    }
+        return res.json(finalList);
+        } catch(e) { // Error yet to work out. Still works, though.
             e.code === 'ECONNRESET' ?
             console.log('Connection error. Reloading...')
             : console.error(e);
@@ -54,7 +68,7 @@ module.exports = router.get('/videogames', async (req, res) => {
 
 /* Main route queries (Async style) (Incomplete)
 
-    const name = req.query.name;
+
     const genre = req.query.genre;
     const created = req.query.created;
     const apiGames = await games();
