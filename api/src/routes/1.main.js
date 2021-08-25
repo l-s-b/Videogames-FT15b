@@ -22,19 +22,46 @@ module.exports = router.get('/videogames', async (req, res) => {
         } finalList = [...finalList, ...preloaded]
         // console.log('List count: ', finalList.length);
 
-    // NAME QUERY (WORKING!)
+    // NAME QUERY (WORKING! Displaying only first page results.)
         if(name) {
             name = name.toLowerCase();
             try {
                 const nameFilter = finalList.filter(
                     game => game.name?.toLowerCase().includes(name) ||
                     game.slug?.includes(name));
-                nameFilter.length ? res.json(nameFilter) : res.json("Sorry, no games by that name.");
+                nameFilter.length ?
+                res.json(nameFilter.slice(0, 15)) :
+                res.json("Sorry, no games by that name.");
                 return;
             } catch(e) {return console.error(e);}
-
     }
-        return res.json(finalList);
+// GENRE QUERY (Solve later)
+    /*if(genre) {
+        genre = genre.toLowerCase();
+        try {
+            const genreFilter = finalList.filter(
+                (game, i) => game.genres ? game.genres[i]?.name.toLowerCase().includes(genre) : '');
+            genreFilter.length ?
+            res.json(genreFilter.slice(0,15)) :
+            res.json("Sorry, no games with that genre.");
+            return;
+        } catch(e) {return console.error(e);}
+}
+*/
+// ORIGIN QUERY (WORKING!)
+if (created) { switch (created) {
+    case "t": return res.json(finalList.filter(game => game.created));
+    case "f": return res.json(finalList.filter(game => !game.created).slice(0, 15));
+    default: break;
+/*}if(created === "t") { return res.json(finalList.filter(game => game.created)) };
+if(created === "f") { try {
+        return res.json(finalList.filter(game => !game.created))
+    }*/
+} return res.json('Invalid created status.');
+}
+
+// NO QUERIES:
+        return res.json(finalList.slice(0, 15));
         } catch(e) { // Error yet to work out. Still works, though.
             e.code === 'ECONNRESET' ?
             console.log('Connection error. Reloading...')

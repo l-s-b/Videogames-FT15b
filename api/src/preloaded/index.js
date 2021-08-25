@@ -72,7 +72,7 @@ module.exports = [
         "id": "preloaded2",
         "name": "Teto 2: Real Low",
         "background_image": 'https://www.catastrofico.com.ar/web/wp-content/uploads/2012/09/tetopost.jpg',
-        "description": "Get away from Teto Medina's hands before he gets you to crouch and stick it in you.",
+        "description": "Run away from Mr. Medina's hands before he gets you to crouch and stick it in you.",
         "released": '2021-08-16',
         "rating": 3.9,
         "platforms": [{
