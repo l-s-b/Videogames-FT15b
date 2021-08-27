@@ -53,10 +53,6 @@ if (created) { switch (created) {
     case "t": return res.json(finalList.filter(game => game.created));
     case "f": return res.json(finalList.filter(game => !game.created).slice(0, 15));
     default: break;
-/*}if(created === "t") { return res.json(finalList.filter(game => game.created)) };
-if(created === "f") { try {
-        return res.json(finalList.filter(game => !game.created))
-    }*/
 } return res.json('Invalid created status.');
 }
 
@@ -70,7 +66,7 @@ if(created === "f") { try {
     }
 
 });
-// Without loop:
+// Without while loop:
 /*router.get('/games', async (req, res) => {
     try {
         const page1 = await axios.get(`https://api.rawg.io/api/games?key=${API_KEY}`);
@@ -93,20 +89,7 @@ if(created === "f") { try {
 
 });*/
 
-/* Main route queries (Async style) (Incomplete)
-
-
-    const genre = req.query.genre;
-    const created = req.query.created;
-    const apiGames = await games();
-
-    try {
-
-    } catch(error) { console.log(error) }
-
-})*/
-
-// Main route (Promise style) (20 items, working)
+// (Promise style) (20 items, working)
 /*
 router.get('/games', (req, res) => {
     const totalGames = [];

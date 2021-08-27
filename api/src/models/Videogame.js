@@ -13,7 +13,7 @@ module.exports = (sequelize) => {
     background_image: { type: DataTypes.STRING },
     name: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true,
       unique: true,
     },
     description: { type: DataTypes.STRING, },
@@ -26,12 +26,14 @@ module.exports = (sequelize) => {
       allowNull: false,
     },
     genres: {
-      type: DataTypes.ARRAY(DataTypes.JSON),  // Apparently working!
+      type: DataTypes.ARRAY(DataTypes.INTEGER),
+      // NOT DataTypes.JSONs because '../routes/4.postGame.js'
       defaultValue: [],
       allowNull: false,
     },
     platforms: {
-      type: DataTypes.ARRAY(DataTypes.JSON),
+      type: DataTypes.ARRAY(DataTypes.INTEGER),
+      // Change into DataTypes.JSON if necessary.
       defaultValue: [],
       allowNull: false,
     },
