@@ -10,7 +10,7 @@ const post = require('./4.postGame.js');
 // Route setup
 router.use('/', main);
 router.use('/', detail);
-router.use('/', genres)
+router.use('/', genres);
 router.use('/', post);
 
 module.exports = router;

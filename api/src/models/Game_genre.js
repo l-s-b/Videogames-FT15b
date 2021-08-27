@@ -5,7 +5,6 @@ module.exports = (sequelize) => {
   sequelize.define('game_genre', {
     id: {
       type: DataTypes.INTEGER,
-      allowNull: false,
       primaryKey: true,
     },
     name: {
