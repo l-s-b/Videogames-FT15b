@@ -8,6 +8,7 @@ const { Videogame, Game_genre, vg_genres } = require("../db.js"); // Importing D
 module.exports = router.post('/videogame', async (req, res) => {
     const submitted = req.body;
     try {
+        // WORKING. DO NOT TOUCH DB FILLUP!
         // FIRST, FILL GENRE DB (Just like in './3.getGenres.js')
         const apiGenres = async () => {
             const api = await axios.get(`https://api.rawg.io/api/genres?key=${API_KEY}`);
@@ -29,7 +30,7 @@ module.exports = router.post('/videogame', async (req, res) => {
                 description: submitted.description,
                 released: submitted.released,
                 rating: submitted.rating,
-                genres: submitted.genres, // Must be an array of genre IDs (or objects?).
+                genres: submitted.genres, // Change later to JSON.
                 platforms: submitted.platforms, // Same here.
             }
         });

@@ -36,7 +36,8 @@ module.exports = router.get('/videogames', async (req, res) => {
             } catch(e) {return console.error(e);}
     }
 // GENRE QUERY (Solve later)
-    /*if(genre) {
+    /*
+    if(genre) {
         genre = genre.toLowerCase();
         try {
             const genreFilter = finalList.filter(
@@ -67,7 +68,8 @@ if (created) { switch (created) {
 
 });
 // Without while loop:
-/*router.get('/games', async (req, res) => {
+/*
+router.get('/games', async (req, res) => {
     try {
         const page1 = await axios.get(`https://api.rawg.io/api/games?key=${API_KEY}`);
         const page2 = await axios.get(page1.data.next);

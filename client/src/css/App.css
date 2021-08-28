@@ -1,0 +1,83 @@
+.App {
+  position: relative;
+  text-align: center;
+  background-color: rgb(10, 10, 20);
+  color: white;
+  min-height: 100vh;
+}
+
+.wrap {
+padding-bottom: 2.5rem;
+}
+
+.picture {
+  min-height: 15rem;
+  max-height: 15rem;
+}
+
+.h2 {
+  font-size: 4rem;
+  color: antiquewhite;
+  padding-top: 0%;
+  margin: 0%;
+}
+
+.LP {
+    background-image: url('https://images.pexels.com/photos/194511/pexels-photo-194511.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940');
+    background-size: cover;
+    width: 100%;
+    height: max-content;
+    opacity: 80%;
+    padding:0;
+    margin:0;
+}
+.Gap {
+  height: 100vh;
+  width: 100vh;
+}
+
+.btn {
+background-color: black;
+color: antiquewhite;
+padding: 10px;
+font-size: 2rem;
+border-radius: 5px;
+margin: 40px;
+}
+
+.link {
+  text-decoration: none;
+}
+.link:link {
+  color: antiquewhite;
+}
+.link:visited {
+  color: darkkhaki;
+}
+.link:hover {
+  color: aquamarine;
+}
+
+.home {
+  text-shadow: black;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.videogame {
+
+  max-width: 50%;
+  padding: 20px;
+  margin: auto;
+  margin-bottom: 10px;
+  background-color: rgb(30, 30, 50);
+  color: antiquewhite;
+  border-radius: 20px;
+  border-width: 5px;
+  border-color: rgb(20, 20, 40);
+  border-style: solid;
+}

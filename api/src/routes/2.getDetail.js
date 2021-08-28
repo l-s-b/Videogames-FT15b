@@ -8,16 +8,20 @@ const { Videogame } = require("../db.js"); // Importing DB table
 
 module.exports = router.get("/videogame/:id", async (req, res) => {
   const id = req.params.id;
+
   try {
     // Is it within the preloaded games array? Let's find out:
-    const found = preloaded.find((game) => game.id === id);
+    const found = preloaded.find(game => game.id === id);
     // console.log("Requested ID: " + id + ". Found ID: " + found.id);
     if (found) {
       console.log('Retrieved from "Preloaded" array.');
       return res.json(found);
     }
 
-    // Is it in the DB? --- WHEN READY, CHECK THAT IT WORKS.
+    // Is it in the DB? (WORKING! Just make sure you have the updated UUID.)
+    /* const consoleTest = await Videogame.findAll();
+    console.log(`ID: ${id}.`);
+    console.log(consoleTest); */
     const db = await Videogame.findByPk(id);
     if (db) {
       console.log('Retrieved from Database.');
