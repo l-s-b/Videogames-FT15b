@@ -7,7 +7,6 @@ export const GET_GAME_BY_ID = "GET_GAME_BY_ID";
 export const POST_CUSTOM_GAME = "POST_CUSTOM_GAME";
 // CREATE MORE ACTIONS WHEN NECESSARY
 
-
 // Videogame list action (Promise style)
 export function getVideogames() {
     return (dispatch) => {

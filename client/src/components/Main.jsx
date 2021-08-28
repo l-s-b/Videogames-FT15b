@@ -20,10 +20,11 @@ function Main() {
         ) : (
           videogames.map((v) => (
             <div className='videogame'>
-            <Link to={`main/videogame/${v.id}`}>
+            <Link className="link" to={`main/videogame/${v.id}`}>
               <h2>{v.name}</h2>
               <img className="picture" src={v.background_image} alt=''/>
-              <p>Rating: {v.rating}</p>
+              <p><ul>{v.genres/*?*/.map(g => <li>{`${g.name}`}</li>)}</ul></p>
+              <p>{v.rating}<span role="img" aria-label="star">⭐</span></p>
             </Link>
             </div>
           ))
