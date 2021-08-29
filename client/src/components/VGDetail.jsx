@@ -18,21 +18,24 @@ function VGDetail() {
   switch(v) {
   case undefined: return <img src={waitgif} alt='Undefined. Sorry.'/>;
   case null: return <Error404 />;
-  default: return <div className="videogame">
+  default: if (!v.name) {
+    return <Error404 />;
+  } else { return <div className="videogame">
   <h2>{`${v.name}`}</h2>
   <img src={v.background_image} alt=''/>
   <p>Rating: {v.rating}</p>
-  {v.description}
+  <div dangerouslySetInnerHTML={{ __html: v.description }} />
   <p>Release date: {v.released}</p>
 
-  <div><h3>Genres:</h3> <ul>{v.genres/*?*/.map(g => <li>{`${g.name}`}</li>)}</ul></div>
-  <div><h3>Platforms: </h3> <ul>{v.platforms/* ? */.map(p => <li>{`${p.platform.name}`}</li>)}</ul></div>
+  <div><h3>Genres:</h3> <ul>{v.genres && v.genres.map(g => <li>{`${g.name}`}</li>)}</ul></div>
+  <div><h3>Platforms: </h3> <ul>{v.platforms && v.platforms.map(p => <li>{`${p.platform.name}`}</li>)}</ul></div>
   <div>
     <h3>Stores:</h3>
-    <ul>{v.stores/* ? */.map(s => <li><a href={`https://${s.store.domain}`}>{`${s.store.name}`}</a></li>)}</ul>
+    <ul>{v.stores && v.stores.map(s => <li><a href={`https://${s.store.domain}`}>{`${s.store.name}`}</a></li>)}</ul>
   </div>
   <Link to='/main'>Back</Link>
 </div>
+  }
 }
 }
 

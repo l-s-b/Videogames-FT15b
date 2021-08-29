@@ -1,6 +1,9 @@
 import { GET_ALL_GAMES, GET_GAME_BY_ID, POST_CUSTOM_GAME } from './actions';
 const initialState = {
     videogames: undefined,
+    order: "ASC",
+    limit: 15,
+    sortBy: '',
     gameByID: undefined,
     genre: undefined };
 
@@ -20,7 +23,9 @@ function reducer(state = initialState, action) {
             }
         }
         case POST_CUSTOM_GAME: {
-            return state;
+            return {
+                ...state,
+            }
         }
 
         default: { return state; }

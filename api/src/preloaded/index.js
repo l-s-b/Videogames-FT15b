@@ -3,7 +3,7 @@ module.exports = [
     "id": "preloaded1",
     "name": "Tocada Online",
     "background_image": 'https://images.pexels.com/photos/3038122/pexels-photo-3038122.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
-    "description": 'The all-time playground classic, finally on mainstream consoles.',
+    "description": '<p>The all-time playground classic, finally on mainstream consoles.</p>',
     "released": '2021-08-17',
     "rating": 4.6,
     "platforms": [{
@@ -72,7 +72,7 @@ module.exports = [
         "id": "preloaded2",
         "name": "Teto 2: Real Low",
         "background_image": 'https://www.catastrofico.com.ar/web/wp-content/uploads/2012/09/tetopost.jpg',
-        "description": "Run away from Mr. Medina's hands before he gets you to crouch and stick it in you.",
+        "description": "<p>Run away from Mr. Medina's hands before he gets you to crouch and stick it in you.</p>",
         "released": '2021-08-16',
         "rating": 3.9,
         "platforms": [{

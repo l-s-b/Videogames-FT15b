@@ -24,13 +24,13 @@ export function getVideogames() {
 export function getVideogame(id) {
     return (dispatch) => {
         axios.get(`http://localhost:3001/videogame/${id}`)
-            .then(response => {
+            .then(res => {
                 dispatch({
                     type: GET_GAME_BY_ID,
-                    payload: response.data,
+                    payload: res.data,
                 })
             }).catch(e => {
-             if(e.response/*?*/.status !== '404') {return < OtherError /> }
+             if(e.res && e.res.status !== '404') {return < OtherError /> }
                 console.error(e);
             dispatch({
                 type: GET_GAME_BY_ID,

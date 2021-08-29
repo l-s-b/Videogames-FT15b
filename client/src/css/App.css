@@ -4,10 +4,11 @@
   background-color: rgb(10, 10, 20);
   color: white;
   min-height: 100vh;
+  padding-bottom: 10px;
 }
 
 .wrap {
-padding-bottom: 2.5rem;
+padding-bottom: 3rem;
 }
 
 .picture {
