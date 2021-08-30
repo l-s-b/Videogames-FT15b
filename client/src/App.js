@@ -8,6 +8,7 @@ import LP from "./components/LP";
 import Main from "./components/Main";
 import Footer from "./components/Footer";
 import VGDetail from "./components/VGDetail";
+import PostGame from "./components/PostGame";
 
 function App() {
 
@@ -17,6 +18,7 @@ function App() {
       <Route exact path='/' component={ LP } />
       <Route path='/main' component={NavBar} />
       <Route exact path='/main' component={Main} />
+      <Route path='/main/videogame/post' component={PostGame} />
       <Route path='/main/videogame/:id' component={VGDetail} />
       <Footer />
     </div>

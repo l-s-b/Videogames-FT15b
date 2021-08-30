@@ -5,9 +5,10 @@ import OtherError from '../components/OtherError';
 export const GET_ALL_GAMES = "GET_ALL_GAMES";
 export const GET_GAME_BY_ID = "GET_GAME_BY_ID";
 export const POST_CUSTOM_GAME = "POST_CUSTOM_GAME";
+
 // CREATE MORE ACTIONS WHEN NECESSARY
 
-// Videogame list action (Promise style)
+// GET Videogame list action (Promise style)
 export function getVideogames() {
     return (dispatch) => {
         axios.get('http://localhost:3001/videogames')
@@ -20,7 +21,7 @@ export function getVideogames() {
     }
 };
 
-// Videogame detail action (Promise style)
+// GET Videogame detail action (Promise style)
 export function getVideogame(id) {
     return (dispatch) => {
         axios.get(`http://localhost:3001/videogame/${id}`)
@@ -40,7 +41,7 @@ export function getVideogame(id) {
     }
 };
 
-// Clear videogame detail action (Promise style)
+// Clear videogame detail action
 export function clearDetail() {
     return {
            type: GET_GAME_BY_ID,
@@ -48,4 +49,15 @@ export function clearDetail() {
    }
 };
 
-
+//POST Videogame action (NOT TESTED YET)
+export function postVideogame() {
+    return (dispatch) => {
+        axios.post('http://localhost:3001/videogame')
+            .then(response => {
+                dispatch({
+                    type: POST_CUSTOM_GAME,
+                    // payload: response.data,
+                })
+            })
+    }
+};

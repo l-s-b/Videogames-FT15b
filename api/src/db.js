@@ -29,14 +29,14 @@ let capsEntries = entries.map((entry) => [entry[0][0].toUpperCase() + entry[0].s
 sequelize.models = Object.fromEntries(capsEntries);
 
 // Get models from destructuring sequelize.models
-const { Videogame, GameGenre } = sequelize.models;
+const { Videogame, Genre } = sequelize.models;
 
 // Entity relations
-Videogame.belongsToMany(GameGenre, { through: "vg_genre" });
-GameGenre.belongsToMany(Videogame, { through: "vg_genre" });
+Videogame.belongsToMany(Genre, { through: "vg_genre" });
+Genre.belongsToMany(Videogame, { through: "vg_genre" });
 
 module.exports = {
   ...sequelize.models, // To be imported as models in routes:
-//                        const { Videogame, GameGenre } = require('./db.js');
+//                        const { Videogame, Genre } = require('./db.js');
   conn: sequelize,     // To be imported as connection @ 'api/index.js'.
 };

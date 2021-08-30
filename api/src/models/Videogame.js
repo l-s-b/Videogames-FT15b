@@ -25,7 +25,7 @@ module.exports = (sequelize) => {
       type: DataTypes.FLOAT,
       allowNull: false,
     },
-    genres: {
+    genre_list: {
       type: DataTypes.ARRAY(DataTypes.INTEGER),
       // NOT DataTypes.JSONs because '../routes/4.postGame.js'
       defaultValue: [],

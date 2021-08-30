@@ -3,7 +3,7 @@ const router = Router();
 const axios = require("axios"); // Requiring Backend API request libraries
 require('dotenv').config();
 const { API_KEY } = process.env; // Importing API KEY
-const { Videogame, GameGenre, vg_genres } = require("../db.js"); // Importing DB table
+const { Videogame, Genre, vg_genres } = require("../db.js"); // Importing DB table
 
 module.exports = router.post('/videogame', async (req, res) => {
     const submitted = req.body;
@@ -15,9 +15,9 @@ module.exports = router.post('/videogame', async (req, res) => {
             return api.data.results;
         }
         const genres = await apiGenres();
-        let db = await GameGenre.findAll();
+        let db = await Genre.findAll();
         if(!db.length) { // filling and reloading DB if necessary,
-        await GameGenre.bulkCreate(genres);
+        await Genre.bulkCreate(genres);
         };
 
         // OK, NOW POST ITSELF:
@@ -26,18 +26,20 @@ module.exports = router.post('/videogame', async (req, res) => {
             where: {
                 // No background image needed.
                 // UUID is auto-generated.
+                background_image: "https://freesvg.org/img/Game-Controller-Outline-White-2.png",
                 name: submitted.name,
                 description: submitted.description,
                 released: submitted.released,
                 rating: submitted.rating,
-                genres: submitted.genres, // Change later to JSON.
+                genre_list: submitted.genre_list, // Integer list is OK.
                 platforms: submitted.platforms, // Same here.
             }
         });
         console.log(justAdded ? "Game successfully added." : "Already found.");
-        // E/R SETTING: Use 'setGameGenres' or 'addGameGenres' Sequelize methods
-        await dbGame.setGameGenres(submitted.genres);
+        // E/R SETTING: Use 'setGenres' or 'addGenres' Sequelize methods
+        await dbGame.setGenres(submitted.genre_list);
         // I reckon this is optional, but useful for Insomnia/Postman verification:
-        justAdded ? res.json(dbGame) : (res.status(304), res.json(dbGame));
+        //justAdded ? res.json(dbGame) : (res.status(304), res.json(dbGame));
+        return res.json(dbGame);
     } catch(e) { console.error(e) }
 })

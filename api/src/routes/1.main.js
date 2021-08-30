@@ -5,6 +5,7 @@ const axios = require('axios'); // Requiring Backend API request libraries
 require('dotenv').config();
 const { API_KEY } = process.env; // Importing API KEY
 const preloaded = require('../preloaded'); // Loading some extra mock videogames
+const { Videogame, Genre } = require("../db.js"); // Importing DB table
 
 // M A I N   R O U T E (async style) (100 items)
 // With while loop:
@@ -19,7 +20,12 @@ module.exports = router.get('/videogames', async (req, res) => {
             let next = await axios.get(previous.data.next);
             finalList = [...finalList, ...next.data.results,]
             previous = next;
-        } finalList = [...finalList, ...preloaded]
+        }
+        // Now adding videogames from DB (Don't forget the Genre connection):
+        const db = await Videogame.findAll({ include: Genre });
+        // console.log(db);
+        // EXTRA: Adding a small set of preloaded games
+        finalList = [...db, ...finalList, ...preloaded]
         // console.log('List count: ', finalList.length);
 
     // NAME QUERY (WORKING! Displaying only first page results.)
