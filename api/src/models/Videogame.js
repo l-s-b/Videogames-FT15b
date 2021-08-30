@@ -38,7 +38,7 @@ module.exports = (sequelize) => {
       allowNull: false,
     },
     stores: {
-      type: DataTypes.ARRAY(DataTypes.JSON),
+      type: DataTypes.ARRAY(DataTypes.INTEGER),
       defaultValue: [],
       allowNull: false,
     },

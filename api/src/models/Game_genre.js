@@ -2,7 +2,7 @@ const { DataTypes, Sequelize } = require('sequelize');
 // DB Model export and injection to Sequelize
 module.exports = (sequelize) => {
   // Model Definition
-  sequelize.define('game_genre', {
+  sequelize.define('gameGenre', {
     id: {
       type: DataTypes.INTEGER,
       primaryKey: true,

@@ -19,7 +19,7 @@ padding-bottom: 3rem;
 .h2 {
   font-size: 4rem;
   color: antiquewhite;
-  padding-top: 0%;
+  padding-top: 10%;
   margin: 0%;
 }
 
@@ -38,12 +38,16 @@ padding-bottom: 3rem;
 }
 
 .btn {
-background-color: black;
+background-color: rgb(20, 20, 40);
 color: antiquewhite;
 padding: 10px;
 font-size: 2rem;
 border-radius: 5px;
+border-style: solid;
+border-width: 5px;
+border-color: rgb(30, 30, 50);
 margin: 40px;
+opacity: 80%
 }
 
 .link {
@@ -81,4 +85,10 @@ ul {
   border-width: 5px;
   border-color: rgb(20, 20, 40);
   border-style: solid;
+}
+
+.waitgif {
+  max-width: 25%;
+  max-height: 25%;
+  border-radius: 50%;
 }

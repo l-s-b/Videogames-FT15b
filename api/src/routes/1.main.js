@@ -35,20 +35,22 @@ module.exports = router.get('/videogames', async (req, res) => {
                 return;
             } catch(e) {return console.error(e);}
     }
-// GENRE QUERY (Solve later)
-    /*
+// GENRE QUERY (Solve later, working poorly)
+/*
     if(genre) {
         genre = genre.toLowerCase();
+        console.log(genre);
         try {
-            const genreFilter = finalList.filter(
-                (game, i) => game.genres ? game.genres[i]?.name.toLowerCase().includes(genre) : '');
+            const genreFilter = finalList.map(
+                game => game.genres &/ game.genres.filter(g => g.name?.toLowerCase().includes(genre))
+            );
             genreFilter.length ?
             res.json(genreFilter.slice(0,15)) :
             res.json("Sorry, no games with that genre.");
             return;
         } catch(e) {return console.error(e);}
-}
-*/
+}*/
+
 // ORIGIN QUERY (WORKING!)
 if (created) { switch (created) {
     case "t": return res.json(finalList.filter(game => game.created));

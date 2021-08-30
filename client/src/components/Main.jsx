@@ -15,15 +15,19 @@ function Main() {
     return (
       <div className="videogames">
       <h1>This is Henry Games Main.</h1>
+
+  {/* COMMENT LIKE THIS INSIDE JSX. */}
+  {/* LOADING GIF */}
         {!videogames ? (
-          <img src={waitgif} alt=''/>
+          <img className="waitgif" src={waitgif} alt='Loading . . .'/>
         ) : (
+  // Get all videogames from backend (including preloaded and created), then only display what I need to.
           videogames.map((v) => (
             <div className='videogame'>
             <Link className="link" to={`main/videogame/${v.id}`}>
               <h2>{v.name}</h2>
               <img className="picture" src={v.background_image} alt=''/>
-              <p><ul>{v.genres/*?*/.map(g => <li>{`${g.name}`}</li>)}</ul></p>
+              <p><ul>{v.genres.map(g => <li>{`${g.name}`}</li>)}</ul></p>
               <p>{v.rating}<span role="img" aria-label="star">⭐</span></p>
             </Link>
             </div>

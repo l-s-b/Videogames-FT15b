@@ -3,7 +3,7 @@ const router = Router();
 const axios = require("axios"); // Requiring Backend API request libraries
 require('dotenv').config();
 const { API_KEY } = process.env; // Importing API KEY
-const { Videogame, Game_genre, vg_genres } = require("../db.js"); // Importing DB table
+const { Videogame, GameGenre, vg_genres } = require("../db.js"); // Importing DB table
 
 module.exports = router.post('/videogame', async (req, res) => {
     const submitted = req.body;
@@ -15,9 +15,9 @@ module.exports = router.post('/videogame', async (req, res) => {
             return api.data.results;
         }
         const genres = await apiGenres();
-        let db = await Game_genre.findAll();
+        let db = await GameGenre.findAll();
         if(!db.length) { // filling and reloading DB if necessary,
-        await Game_genre.bulkCreate(genres);
+        await GameGenre.bulkCreate(genres);
         };
 
         // OK, NOW POST ITSELF:
@@ -35,9 +35,9 @@ module.exports = router.post('/videogame', async (req, res) => {
             }
         });
         console.log(justAdded ? "Game successfully added." : "Already found.");
-        // E/R SETTING: Use 'setGame_genres' or 'addGame_genres' Sequelize methods
-        await dbGame.setGame_genres(submitted.genres);
+        // E/R SETTING: Use 'setGameGenres' or 'addGameGenres' Sequelize methods
+        await dbGame.setGameGenres(submitted.genres);
         // I reckon this is optional, but useful for Insomnia/Postman verification:
-        return res.json(dbGame);
+        justAdded ? res.json(dbGame) : (res.status(304), res.json(dbGame));
     } catch(e) { console.error(e) }
 })

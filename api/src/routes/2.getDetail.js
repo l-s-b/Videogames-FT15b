@@ -4,7 +4,7 @@ const axios = require("axios"); // Requiring Backend API request libraries
 require("dotenv").config();
 const { API_KEY } = process.env; // Importing API KEY
 const preloaded = require("../preloaded"); // Loading some extra mock videogames
-const { Videogame } = require("../db.js"); // Importing DB table
+const { Videogame, GameGenre } = require("../db.js"); // Importing DB table
 
 module.exports = router.get("/videogame/:id", async (req, res) => {
   const id = req.params.id;
@@ -22,7 +22,7 @@ module.exports = router.get("/videogame/:id", async (req, res) => {
     /* const consoleTest = await Videogame.findAll();
     console.log(`ID: ${id}.`);
     console.log(consoleTest); */
-    const db = await Videogame.findByPk(id);
+    const db = await Videogame.findByPk(id, { include: [GameGenre] });
     if (db) {
       console.log('Retrieved from Database.');
       return res.json(db);
