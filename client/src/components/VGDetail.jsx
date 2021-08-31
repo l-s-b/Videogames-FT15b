@@ -12,7 +12,7 @@ function VGDetail() {
   const waitgif = "https://media2.giphy.com/media/hqTguNdEoA1ooYxeog/giphy.gif?cid=ecf05e4798x5tyb4ea8iouxizlvg4jttm7yuxiz6mq87cb3s&rid=giphy.gif&ct=g";
   useEffect(() => {
     dispatch(getVideogame(id));
-    return () => {dispatch(clearDetail)};
+    return () => {dispatch(clearDetail())};
   }, [dispatch, id]);
 
   switch(v) {

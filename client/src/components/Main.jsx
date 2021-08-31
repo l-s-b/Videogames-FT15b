@@ -7,7 +7,7 @@ function Main() {
   const dispatch = useDispatch();
   const videogames = useSelector((state) => state.videogames); // Mapping
   const waitgif = "https://media2.giphy.com/media/xUOrw01a1gy7BUwq40/giphy.gif?cid=ecf05e47esox7qnyrlnkp5ude73smqlpiv5702w9tqe7d5zc&rid=giphy.gif&ct=g";
-  useEffect(() => { dispatch(getVideogames()); }, [dispatch]);
+  useEffect(() => { dispatch(getVideogames()) }, [dispatch]);
 
     return (
       <div className="videogames">

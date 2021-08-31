@@ -49,7 +49,15 @@ export function clearDetail() {
    }
 };
 
-//POST Videogame action (NOT TESTED YET)
+// Clear videogame list action
+export function clearList() {
+    return {
+           type: GET_ALL_GAMES,
+           payload: undefined
+   }
+};
+
+//POST Videogame action (Promise style)(NOT TESTED YET)
 /*
 export function postVideogame(values) {
 

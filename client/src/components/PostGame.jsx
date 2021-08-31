@@ -5,8 +5,6 @@ import { getVideogames } from "../redux/actions";
 import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
-
-
 function PostGame() {
     const dispatch = useDispatch();
     const { push } = useHistory();
