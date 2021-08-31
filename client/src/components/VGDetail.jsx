@@ -23,11 +23,10 @@ function VGDetail() {
     return <Error404 />;
   } else { return <div className="videogame">
   <h2>{`${v.name}`}</h2>
-  <img src={v.background_image} alt=''/>
-  <p>Rating: {v.rating}</p>
+  <img className="picture" src={v.background_image} alt=''/>
+  <p>Rating: {v.rating}<span role="img" aria-label="star">⭐</span></p>
   <div dangerouslySetInnerHTML={{ __html: v.description }} />
   <p>Release date: {v.released}</p>
-
   <div><h3>Genres:</h3> <ul>{v.genres && v.genres.map(g => g.name && <li>{`${g.name}`}</li>)}</ul></div>
   <div><h3>Platforms: </h3> <ul>{v.platforms && v.platforms.map(p => <li>{`${p.platform.name}`}</li>)}</ul></div>
   <div>

@@ -3,7 +3,7 @@ import "./css/App.css";
 import "./css/NavBar.css";
 import "./css/Footer.css";
 import NavBar from "./components/NavBar";
-import { Route } from "react-router";
+import { Route, Switch } from "react-router";
 import LP from "./components/LP";
 import Main from "./components/Main";
 import Footer from "./components/Footer";
@@ -18,8 +18,10 @@ function App() {
       <Route exact path='/' component={ LP } />
       <Route path='/main' component={NavBar} />
       <Route exact path='/main' component={Main} />
-      <Route path='/main/videogame/post' component={PostGame} />
-      <Route path='/main/videogame/:id' component={VGDetail} />
+      <Switch>
+        <Route exact path='/main/videogame/post' component={PostGame} />
+        <Route path='/main/videogame/:id' component={VGDetail} />
+      </Switch>
       <Footer />
     </div>
   );

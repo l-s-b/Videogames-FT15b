@@ -28,8 +28,7 @@ function Main() {
               <h2>{v.name}</h2>
               <p>{console.log(v.background_image)}</p>
               <img className="picture" src={v.background_image} alt=''/>
-              <p><ul>{v.genres ? v.genres.map(g => <li>{`${g.name}`}</li>) :
-              v.genres.map(g => <li>{`${g.name}`}</li>)}</ul></p>
+              <p><ul>{v.genres.map(g => <li>{`${g.name}`}</li>)}</ul></p>
               <p>{v.rating}<span role="img" aria-label="star">⭐</span></p>
             </Link>
             </div>
