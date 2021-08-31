@@ -1,17 +1,22 @@
 import React from 'react';
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { postVideogame } from "../redux/actions";
-// import { Link } from 'react-router-dom';
+import axios from 'axios';
+import { useDispatch } from "react-redux";
+import { getVideogames } from "../redux/actions";
 import { useState } from 'react';
+import { useHistory } from 'react-router-dom';
+
+
 
 function PostGame() {
+    const dispatch = useDispatch();
+    const { push } = useHistory();
     const [values, setValues] = useState({
         name: "",
         description: "",
         released: "",
         rating: 0.0,
-        genre_list: []
+        genre_list: [],
+        platforms: []
     });
 
     function handleChange(e) {
@@ -29,10 +34,7 @@ function PostGame() {
     }
 
     function handleCheck(e) { // Works a charm!
-        setValues( values => ({
-            ...values,
-            //[e.target.name]: e.target.value,
-        }))
+        setValues( values => ({ ...values, }))
         if (e.target.checked) {
             values.genre_list.push(parseInt(e.target.value));
         values.genre_list.sort((a, b) => a - b)
@@ -43,15 +45,14 @@ function PostGame() {
 
     function handleSubmit(e) {
         e.preventDefault();
-        console.log(values);
-        postVideogame();
-        }
+        axios.post('http://localhost:3001/videogame', values)
+            .then(response => {
+                dispatch(getVideogames());
+                push(response.data.route);
+                alert("New custom game successfully posted!");
+            }).catch(e => console.error(e));
 
-    const dispatch = useDispatch();
-    // const videogames = useSelector((state) => state.videogames); // Do I need this?
-    /*useEffect(() => {
-      dispatch(postVideogame());
-    }, [dispatch]);*/
+        }
 
       return (
         <div className="videogames">
@@ -113,7 +114,7 @@ function PostGame() {
             <input onChange={handleCheck} name="genre_list" type="checkbox" value="83" />
             <label htmlFor="83">Platformer  </label>
             </div>
-            <input type="submit" value="Add Game!" />
+            <button type="submit">Add game!</button>
         </form>
         </div>
       )

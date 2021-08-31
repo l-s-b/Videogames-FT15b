@@ -5,7 +5,14 @@ const initialState = {
     limit: 15,
     sortBy: '',
     gameByID: undefined,
-    genre: undefined };
+    genre: undefined,
+    values: {
+        name: "",
+        description: "",
+        released: "",
+        rating: 0.0,
+        genre_list: []
+    }};
 
 function reducer(state = initialState, action) {
     switch(action.type) {

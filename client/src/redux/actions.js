@@ -50,14 +50,14 @@ export function clearDetail() {
 };
 
 //POST Videogame action (NOT TESTED YET)
-export function postVideogame() {
+/*
+export function postVideogame(values) {
+
     return (dispatch) => {
-        axios.post('http://localhost:3001/videogame')
+        axios.post('http://localhost:3001/videogames', values)
             .then(response => {
-                dispatch({
-                    type: POST_CUSTOM_GAME,
-                    // payload: response.data,
-                })
+                dispatch(getVideogames());
             })
     }
 };
+*/

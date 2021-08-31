@@ -1,4 +1,4 @@
-const { DataTypes, Sequelize } = require('sequelize');
+const { DataTypes, Sequelize, VIRTUAL } = require('sequelize');
 // DB Model export and injection to Sequelize
 module.exports = (sequelize) => {
   // Model Definition
@@ -46,6 +46,14 @@ module.exports = (sequelize) => {
       type: DataTypes.BOOLEAN,
       allowNull: false,
       defaultValue: true,
+    },
+
+    route: {
+      type: DataTypes.VIRTUAL,
+      allowNull: true,
+      get() {
+        return `/main/videogame/${this.getDataValue('id')}`
+      }
     },
   });
 };
