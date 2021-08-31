@@ -36,7 +36,7 @@ module.exports = router.get('/videogames', async (req, res) => {
                     game => game.name?.toLowerCase().includes(name) ||
                     game.slug?.includes(name));
                 nameFilter.length ?
-                res.json(nameFilter.slice(0, 15)) :
+                res.json(nameFilter) :
                 res.json("Sorry, no games by that name.");
                 return;
             } catch(e) {return console.error(e);}
@@ -51,7 +51,7 @@ module.exports = router.get('/videogames', async (req, res) => {
                 game => game.genres &/ game.genres.filter(g => g.name?.toLowerCase().includes(genre))
             );
             genreFilter.length ?
-            res.json(genreFilter.slice(0,15)) :
+            res.json(genreFilter) :
             res.json("Sorry, no games with that genre.");
             return;
         } catch(e) {return console.error(e);}
@@ -60,13 +60,13 @@ module.exports = router.get('/videogames', async (req, res) => {
 // ORIGIN QUERY (WORKING!)
 if (created) { switch (created) {
     case "t": return res.json(finalList.filter(game => game.created));
-    case "f": return res.json(finalList.filter(game => !game.created).slice(0, 15));
+    case "f": return res.json(finalList.filter(game => !game.created));
     default: break;
 } return res.json('Invalid created status.');
 }
 
 // NO QUERIES:
-        return res.json(finalList.slice(0, 15));
+        return res.json(finalList);
         } catch(e) { // Error yet to work out. Still works, though.
             e.code === 'ECONNRESET' ?
             console.log('Connection error. Reloading...')
