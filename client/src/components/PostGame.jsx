@@ -18,18 +18,33 @@ function PostGame() {
         setValues( values => ({
             ...values,
             [e.target.name]: e.target.value,
-        }))
+        }));
     }
 
-    function handleCheck(e) {
+    function handleRating(e) {
+        setValues( values => ({
+            ...values,
+            [e.target.name]: parseFloat(e.target.value),
+        }));
+    }
+
+    function handleCheck(e) { // Works a charm!
         setValues( values => ({
             ...values,
             //[e.target.name]: e.target.value,
         }))
+        if (e.target.checked) {
+            values.genre_list.push(parseInt(e.target.value));
+        values.genre_list.sort((a, b) => a - b)
+    }
+        if (!e.target.checked) {
+            values.genre_list = values.genre_list.filter(v => parseInt(v) !== parseInt(e.target.value))}
     }
 
     function handleSubmit(e) {
-        //
+        e.preventDefault();
+        console.log(values);
+        postVideogame();
         }
 
     const dispatch = useDispatch();
@@ -42,63 +57,63 @@ function PostGame() {
         <div className="videogames">
         <h1>Post a custom game:</h1>
     {/* REMEMBER TO COMMENT LIKE THIS INSIDE JSX. */}
-        <form method="POST" action='/videogames'>
+        <form onSubmit={handleSubmit}>
             <div className="post-unit">
-                <label for="name">Name:</label>
-                <input onChange={handleChange} name="name" type="text" />
+                <label htmlFor="name">Name:</label>
+                <input onChange={handleChange} value={values.name} name="name" type="text" />
             </div>
             <div className="post-unit">
-                <label for="description">Description:</label>
-                <textarea onChange={handleChange} name="description" rows="10" cols="80" placeholder="Don't be shy! Write here." />
+                <label htmlFor="description">Description:</label>
+                <textarea onChange={handleChange} value={values.description} name="description" rows="10" cols="80" placeholder="Don't be shy! Write here." />
             </div>
             <div className="post-unit">
-                <label for="released">Release date:</label>
-                <input onChange={handleChange} name="released" type="text" />
+                <label htmlFor="released">Release date:</label>
+                <input onChange={handleChange} value={values.released} name="released" type="text" />
             </div>
             <div className="post-unit">
-            <label for="rating">Overall Rating (between 0.0 and 5.0):</label>
-            <input onChange={handleChange} name="rating" type="number" step=".1" id="gameRating" min="0.0" max="5.0" />
+            <label htmlFor="rating">Overall Rating:</label>
+            <input onChange={handleRating} on value={values.rating} name="rating" type="number" step=".1" min="0.0" max="5.0" />
             </div>
             <div className="post-unit">
                 <h3>Genre(s):</h3>
             <input onChange={handleCheck} name="genre_list" type="checkbox" value="1" />
-            <label for="1">Racing   </label>
+            <label htmlFor="1">Racing   </label>
             <input onChange={handleCheck} name="genre_list" type="checkbox" value="2" />
-            <label for="2">Shooter  </label>
+            <label htmlFor="2">Shooter  </label>
             <input onChange={handleCheck} name="genre_list" type="checkbox" value="3" />
-            <label for="3">Adventure    </label>
+            <label htmlFor="3">Adventure    </label>
             <input onChange={handleCheck} name="genre_list" type="checkbox" value="4" />
-            <label for="4">Action   </label>
+            <label htmlFor="4">Action   </label>
             <input onChange={handleCheck} name="genre_list" type="checkbox" value="5" />
-            <label for="5">RPG  </label>
+            <label htmlFor="5">RPG  </label>
             <input onChange={handleCheck} name="genre_list" type="checkbox" value="6" />
-            <label for="6">Fighting </label>
+            <label htmlFor="6">Fighting </label>
             <input onChange={handleCheck} name="genre_list" type="checkbox" value="7" />
-            <label for="7">Puzzle   </label>
+            <label htmlFor="7">Puzzle   </label>
             <input onChange={handleCheck} name="genre_list" type="checkbox" value="10" />
-            <label for="10">Strategy    </label>
+            <label htmlFor="10">Strategy    </label>
             <input onChange={handleCheck} name="genre_list" type="checkbox" value="14" />
-            <label for="14">Simulation  </label>
+            <label htmlFor="14">Simulation  </label>
             <input onChange={handleCheck} name="genre_list" type="checkbox" value="15" />
-            <label for="15">Sports  </label>
+            <label htmlFor="15">Sports  </label>
             <input onChange={handleCheck} name="genre_list" type="checkbox" value="17" />
-            <label for="17">Card    </label>
+            <label htmlFor="17">Card    </label>
             <input onChange={handleCheck} name="genre_list" type="checkbox" value="19" />
-            <label for="19">Family  </label>
+            <label htmlFor="19">Family  </label>
             <input onChange={handleCheck} name="genre_list" type="checkbox" value="28" />
-            <label for="28">Board Games </label>
+            <label htmlFor="28">Board Games </label>
             <input onChange={handleCheck} name="genre_list" type="checkbox" value="34" />
-            <label for="34">Educational </label>
+            <label htmlFor="34">Educational </label>
             <input onChange={handleCheck} name="genre_list" type="checkbox" value="40" />
-            <label for="40">Casual  </label>
+            <label htmlFor="40">Casual  </label>
             <input onChange={handleCheck} name="genre_list" type="checkbox" value="51" />
-            <label for="51">Indie   </label>
+            <label htmlFor="51">Indie   </label>
             <input onChange={handleCheck} name="genre_list" type="checkbox" value="59" />
-            <label for="59">Massively Multiplayer   </label>
+            <label htmlFor="59">Massively Multiplayer   </label>
             <input onChange={handleCheck} name="genre_list" type="checkbox" value="83" />
-            <label for="83">Platformer  </label>
+            <label htmlFor="83">Platformer  </label>
             </div>
-            <input onSubmit={handleSubmit} type="submit" value="Add Game!" />
+            <input type="submit" value="Add Game!" />
         </form>
         </div>
       )
