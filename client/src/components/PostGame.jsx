@@ -53,7 +53,7 @@ function PostGame() {
             .then(response => {
                 push(response.data.route);
                 alert("New custom game successfully posted!");
-            }).catch(e => console.error(e));
+            }).catch(e => e.code === "ECONNRESET" ? handleSubmit() : console.error(e));
 
         }
 

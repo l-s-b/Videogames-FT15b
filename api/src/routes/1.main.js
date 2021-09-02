@@ -9,9 +9,8 @@ const { Videogame, Genre } = require("../db.js"); // Importing DB table
 
 // M A I N   R O U T E (async style) (100 items)
 // With while loop:
-module.exports = router.get('/videogames', async (req, res) => {
+const main = router.get('/videogames', async (req, res) => {
     let { name, genre, created } = req.query;
-     while(true) { // YES, I KNOW, I CAN EXPLAIN THIS. See below.
         try { // FIRST, GET ALL 100 ITEMS.
             let finalList = [];
         let previous = await axios.get(`https://api.rawg.io/api/games?key=${API_KEY}`);
@@ -64,13 +63,14 @@ if (created) { switch (created) {
 // NO QUERIES:
         return res.json(finalList);
         } catch(e) { // Error yet to work out. Still works, though.
-            e.code === 'ECONNRESET' ?
-            console.log('Connection error. Reloading...')
-            : console.error(e);
+            if (e.code === 'ECONNRESET') {
+             console.log("Connection error. Retrying...");
+             return main;
+             } else console.error(e);
         };
-    }
-
 });
+
+module.exports = main;
 // Without while loop:
 /*
 router.get('/games', async (req, res) => {
