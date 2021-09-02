@@ -15,29 +15,35 @@ function Main() {
 
   useEffect(() => {
     dispatch(getVideogames(pages, order, filter));
-  }, [/* dispatch,  */pages, order, filter]);
+  }, [dispatch, pages, order, filter]);
 
   //BRING VIDEOGAMES FROM REDUX
   const prePagination = useSelector((state) => state.videogames);
 
   //SORTING FAUX REDUCER
   switch(order) {
-    case "ratingAsc": prePagination.sort((a, b) => a.rating - b.rating);
+    case "ratingAsc":
+    prePagination.sort((a, b) => a.rating - b.rating);
     console.log("RATING ASC: ", prePagination.sort((a, b) => a.rating - b.rating));
     break;
-    case "ratingDesc": prePagination.sort((a, b) => b.rating - a.rating);
+    case "ratingDesc":
+    prePagination.sort((a, b) => b.rating - a.rating);
     console.log("RATING DESC: ", prePagination.sort((a, b) => b.rating - a.rating));
     break;
-    case "nameAsc": prePagination.sort(function (a, b) {
-      if (a.name < b.name) { return 1; }
-      if (a.name > b.name) { return -1; }
-      return 0; // if (a.name === b.name)
-    });
-    case "nameDesc": prePagination.sort(function (a, b) {
-      if (b.name > a.name) { return 1; }
-      if (b.name < a.name) { return -1; }
-      return 0; // if (a.name === b.name)
-    });
+    case "nameAsc":
+    prePagination.sort((a,b) => (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0))
+    console.log(
+      "NAME ASC: ", prePagination.sort(
+        (a,b) => (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0)
+        ));
+    break;
+    case "nameDesc":
+    prePagination.sort((a,b) => (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0)).reverse();
+    console.log(
+      "NAME DESC: ", prePagination.sort(
+        (a,b) => (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0)
+        ).reverse());
+    break;
     default: break;
     }
 
@@ -126,7 +132,6 @@ setOrder(e.target.value);
             <div className="box">
               <Link className="link" to={`main/videogame/${v.id}`}>
                 <h2>{v.name}</h2>
-                <p>{console.log(v.background_image)}</p>
                 <img className="picture" src={v.background_image} alt="" />
                 <p>
                   <ul>
