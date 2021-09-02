@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getVideogame, clearDetail } from "../redux/actions";
 import { Link, useParams } from 'react-router-dom';
-import Error404 from './Error404';
+import Error404 from '../components/Error404';
 
 function VGDetail() {
   const dispatch = useDispatch();
@@ -21,7 +21,7 @@ function VGDetail() {
   default: if (!v.name) {
     console.log(v);
     return <Error404 />;
-  } else { return <div className="videogame">
+  } else { return <div className="box">
   <h2>{`${v.name}`}</h2>
   <img className="picture" src={v.background_image} alt=''/>
   <p>Rating: {v.rating}<span role="img" aria-label="star">⭐</span></p>

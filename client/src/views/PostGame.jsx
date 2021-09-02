@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import axios from 'axios';
 import { useDispatch, useSelector } from "react-redux";
-import { getVideogames, getGenres } from "../redux/actions";
+import { getGenres, clearList } from "../redux/actions";
 import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
@@ -19,8 +19,8 @@ function PostGame() {
 
     useEffect(() => {
         dispatch(getGenres());
-        dispatch(getVideogames());
-       }, []);
+        dispatch(clearList());
+       }, [dispatch]);
 
     const foundGenres = useSelector((state) => state.genres);
     function handleChange(e) {
@@ -58,7 +58,7 @@ function PostGame() {
         }
 
       return (
-        <div className="videogame">
+        <div className="box">
         <h1>Post a custom game:</h1>
     {/* REMEMBER TO COMMENT LIKE THIS INSIDE JSX. */}
         <form onSubmit={handleSubmit}>

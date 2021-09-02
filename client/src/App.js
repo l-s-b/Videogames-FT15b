@@ -4,11 +4,11 @@ import "./css/NavBar.css";
 import "./css/Footer.css";
 import NavBar from "./components/NavBar";
 import { Route, Switch } from "react-router";
-import LP from "./components/LP";
-import Main from "./components/Main";
+import LP from "./views/LP";
+import Main from "./views/Main";
 import Footer from "./components/Footer";
-import VGDetail from "./components/VGDetail";
-import PostGame from "./components/PostGame";
+import VGDetail from "./views/VGDetail";
+import PostGame from "./views/PostGame";
 
 function App() {
 

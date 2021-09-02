@@ -2,9 +2,9 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { clearList, getVideogames } from "../redux/actions";
 import { Link } from "react-router-dom";
-import Loading from "./Loading";
-import SearchBar from "./SearchBar";
-import Error404 from "./Error404";
+import Loading from "../components/Loading";
+import SearchBar from "../components/SearchBar";
+import Error404 from "../components/Error404";
 
 function Main() {
   const dispatch = useDispatch();
@@ -19,12 +19,26 @@ function Main() {
 
   //BRING VIDEOGAMES FROM REDUX
   const videogames = useSelector((state) => state.videogames);
+  let prePagination = videogames;
+  /*let ordered = prePagination.sort();*/
   let thisPage = videogames && videogames.slice(pages, pages + pageSize); // AND PAGE THEM.
 
-  /*const handleClick = (e) => {
+  const handleReset = (e) => {
      e.preventDefault();
      dispatch(getVideogames(pages, order, filter));
-   }Not in use rn... */
+   }
+
+  //FILTERS
+  const handleFilter = (e) => {
+    e.preventDefault();
+    setFilter(e.target.value)
+  }
+
+  //SORTING
+  const handleOrder   = (e) => {
+    e.preventDefault();
+    setOrder(e.target.value);
+  }
 
   //PAGINATION
   const pgDn = (e) => {
@@ -55,20 +69,30 @@ function Main() {
       ) : (
 
         <div className="pag-map">
+          <input type="button" onClick={handleReset} value="RESET ALL QUERIES" />
           <SearchBar />
+           {/* SORT */}
           <div className="select">
-            <select>
-              <option value="" disabled selected> Sort by </option>
+            <select defaultValue="">
+              <option value="" disabled> Sort by </option>
               <option>Rating - 0.0 to 5.0</option>
               <option>Rating - 5.0 to 0.0</option>
               <option>Name - A to Z</option>
               <option>Name - Z to A</option>
             </select>
           </div>
+          {/* ORIGIN FILTER */}
+          <div className="select">
+            <select /*onChange={e => changeFilter(e)}*/ defaultValue="">
+              <option value="" disabled> Filter by origin... </option>
+              <option value="false">Existing</option>
+              <option value="true">Custom</option>
+            </select>
+          </div>
           <input type="button" onClick={pgDn} disabled={pages <= 0} value="<" />
           <span>
             Page {Math.ceil((pages + pageSize) / pageSize)} (results {pages + 1}
-            -{pages + pageSize})
+            -{pages + thisPage.length})
           </span>
           <input
             type="button"
@@ -77,9 +101,9 @@ function Main() {
             value=">"
           />
           {/*Get all videogames from backend (including preloaded and created), then only display what I need to.*/}
-          {console.log(thisPage)};
+          {/* console.log(thisPage); */}
            {Array.isArray(thisPage) ? thisPage.map((v) => (
-            <div className="videogame">
+            <div className="box">
               <Link className="link" to={`main/videogame/${v.id}`}>
                 <h2>{v.name}</h2>
                 <p>{console.log(v.background_image)}</p>

@@ -15,7 +15,7 @@ function SearchBar() {
     };
 
     return (
-        <div className="searchbar">
+        <div className="box">
             <input onChange={e => handleChange(e)} type="text" placeholder="Search games..." />
             <button onClick={e => handleClick(e)}>Go!</button>
         </div>

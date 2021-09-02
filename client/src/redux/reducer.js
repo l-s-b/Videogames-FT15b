@@ -40,15 +40,7 @@ function reducer(state = initialState, action) {
                 gameByID: action.payload
             }
         }
-       /*  case RATING_SORT: {
-            let sortedArr = action.payload.direction === "asc" ?
-            sortAsc(state.videogames, 'rating') :
-            sortDesc(state.videogames, 'rating');
-            return {
-                ...state,
-                videogames: sortedArr,
-            };
-        } */
+
          default: { return state; }
     }
 }
