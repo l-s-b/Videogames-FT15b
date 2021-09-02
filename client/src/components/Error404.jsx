@@ -1,9 +1,9 @@
-import React from 'react'
-
-function Error404() {
-    return (
-        <h1>Hi! I'm Error 404. Please customize me, Lucio ponete las pilas.</h1>
+import React from "react";
+export default function Error404() {
+    return ( <div>
+        <img alt="Oops." src="https://media4.giphy.com/media/gdZsA2kk2L4so9toLf/giphy.gif?cid=ecf05e47ekshzja1hofzqkzkrphosfi6mxifpme9a8i2umi8&rid=giphy.gif&ct=g" />
+       <h1>Oops!</h1>
+       <h2>Not found.</h2>
+       </div>
     )
 }
-
-export default Error404;

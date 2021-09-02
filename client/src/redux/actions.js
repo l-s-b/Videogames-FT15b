@@ -4,9 +4,22 @@ import OtherError from '../components/OtherError';
 
 export const GET_ALL_GAMES = "GET_ALL_GAMES";
 export const GET_GAME_BY_ID = "GET_GAME_BY_ID";
+export const GET_ALL_GENRES = "GET_ALL_GENRES";
 export const POST_CUSTOM_GAME = "POST_CUSTOM_GAME";
 
 // CREATE MORE ACTIONS WHEN NECESSARY
+
+export function getGenres() {
+    return (dispatch) => {
+        axios.get('http://localhost:3001/genres')
+            .then(response => {
+                dispatch({
+                    type: GET_ALL_GENRES,
+                    payload: response.data,
+                })
+            })
+    }
+};
 
 // GET Videogame list action (Promise style)
 export function getVideogames() {

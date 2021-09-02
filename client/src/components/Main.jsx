@@ -2,11 +2,11 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { clearList, getVideogames } from "../redux/actions";
 import { Link } from 'react-router-dom';
+import Loading from "./Loading";
 
 function Main() {
   const dispatch = useDispatch();
-  const pageSize = 2
-;
+  const pageSize = 15;
   const [pages, setPages] = useState(0);
   const [filter, setFilter] = useState('');
   const [order, setOrder] = useState('');
@@ -15,13 +15,14 @@ function Main() {
     dispatch(getVideogames(pages, order, filter));
    }, [dispatch, pages, order, filter]);
 
+   //BRING VIDEOGAMES FROM REDUX
    const videogames = useSelector((state) => state.videogames);
-   let thisPage = videogames && videogames.slice(pages, pages + pageSize)
-   const waitgif = "https://media2.giphy.com/media/xUOrw01a1gy7BUwq40/giphy.gif?cid=ecf05e47esox7qnyrlnkp5ude73smqlpiv5702w9tqe7d5zc&rid=giphy.gif&ct=g";
-   const handleClick = (e) => {
+   let thisPage = videogames && videogames.slice(pages, pages + pageSize) // AND PAGE THEM.
+  
+   /*const handleClick = (e) => {
      e.preventDefault();
      dispatch(getVideogames(pages, order, filter));
-   }
+   }Not in use rn... */
 
    //PAGINATION
    const pgDn = (e) => {
@@ -29,7 +30,6 @@ function Main() {
      if(pages <= 0) { setPages(0); }
      else { setPages(pages - pageSize); }
    }
-
    const pgUp = (e) => {
     e.preventDefault();
     if(pages + pageSize > videogames.length) { setPages(pages); }
@@ -42,15 +42,11 @@ function Main() {
 
   {/* COMMENT LIKE THIS INSIDE JSX. */}
   {/* LOADING GIF */}
-        {!thisPage ? (<div>
-          <img className="waitgif" src={waitgif} alt='Loading . . .'/>
-          <h3> Hang in there, this may take a while... </h3>
-          </div>
-        ) : ( //console.log(videogames.map (v => v)),
+        {!thisPage ? <Loading /> : ( //console.log(videogames.map (v => v)),
 
        <div className="pag-map">
           <input type="button" onClick={pgDn} disabled={pages <= 0} value="<" />
-          <span>Page {Math.ceil((pages + pageSize)/pageSize)} ({pages + 1}-{pages + pageSize})</span>
+          <span>Page {Math.ceil((pages + pageSize)/pageSize)} (results {pages + 1}-{pages + pageSize})</span>
           <input type="button" onClick={pgUp} disabled={pages + pageSize >= videogames.length} value=">" />
           {/*Get all videogames from backend (including preloaded and created), then only display what I need to.*/}
         {thisPage.map(v =>

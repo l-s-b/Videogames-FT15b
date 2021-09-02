@@ -14,7 +14,6 @@ function App() {
 
   return (
     <div className='App'>
-
       <Route exact path='/' component={ LP } />
       <Route path='/main' component={NavBar} />
       <Route exact path='/main' component={Main} />

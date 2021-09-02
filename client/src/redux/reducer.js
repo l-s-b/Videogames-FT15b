@@ -1,8 +1,9 @@
-import { GET_ALL_GAMES, GET_GAME_BY_ID, POST_CUSTOM_GAME } from './actions';
+import { GET_ALL_GAMES, GET_GAME_BY_ID, GET_ALL_GENRES, POST_CUSTOM_GAME, } from './actions';
 const initialState = {
     videogames: undefined,
     gameByID: undefined,
     genre: undefined,
+    genres: undefined,
     values: { // POST method
         name: "",
         description: "",
@@ -19,6 +20,12 @@ function reducer(state = initialState, action) {
             return {
                 ...state,
                 videogames: action.payload // FILTER HERE
+            }
+        }
+        case GET_ALL_GENRES: {
+            return {
+                ...state,
+                genres: action.payload // FILTER HERE
             }
         }
         case GET_GAME_BY_ID: {

@@ -21,14 +21,14 @@ module.exports = router.get('/videogames', async (req, res) => {
             finalList = [...finalList, ...next.data.results,]
             previous = next;
         }
-        // Now adding videogames from DB (Don't forget the Genre connection):
-        const db = await Videogame.findAll({ include: Genre });
+        // Now adding videogames from DB:
+        const db = await Videogame.findAll({ include: Genre }); // Genre connection
         // console.log(db);
         // EXTRA: Adding a small set of preloaded games
-        finalList = [...db, ...finalList, ...preloaded]
+        finalList = [...db, ...finalList, ...preloaded];
         // console.log('List count: ', finalList.length);
 
-    // NAME QUERY (WORKING! Displaying only first page results.)
+    // NAME QUERY (WORKING!)
         if(name) {
             name = name.toLowerCase();
             try {
@@ -42,20 +42,16 @@ module.exports = router.get('/videogames', async (req, res) => {
             } catch(e) {return console.error(e);}
     }
 // GENRE QUERY (Solve later, working poorly)
-/*
     if(genre) {
-        genre = genre.toLowerCase();
-        console.log(genre);
+        console.log(typeof genre.toLowerCase());
         try {
-            const genreFilter = finalList.map(
-                game => game.genres &/ game.genres.filter(g => g.name?.toLowerCase().includes(genre))
-            );
-            genreFilter.length ?
+            const genreList = "caca";
+            genreFilter && genreFilter.length ?
             res.json(genreFilter) :
-            res.json("Sorry, no games with that genre.");
+            res.json('Nothing found.');
             return;
         } catch(e) {return console.error(e);}
-}*/
+    }
 
 // ORIGIN QUERY (WORKING!)
 if (created) { switch (created) {
@@ -86,12 +82,14 @@ router.get('/games', async (req, res) => {
         const page5 = await axios.get(page4.data.next);
 
         finalList = [
+            ...db,
+            ...preloaded,
             ...page1.data.results,
             ...page2.data.results,
             ...page3.data.results,
             ...page4.data.results,
             ...page5.data.results,
-            ...preloaded
+
         ];
         res.json([finalList]);
         console.log('List count: ', finalList.length);

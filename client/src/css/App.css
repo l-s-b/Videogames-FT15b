@@ -47,7 +47,13 @@ border-style: solid;
 border-width: 5px;
 border-color: rgb(30, 30, 50);
 margin: 40px;
-opacity: 80%
+opacity: 80%;
+}
+
+.btn:hover {
+transform: scale(1.2);
+color: aquamarine;
+transition-duration: 300ms;
 }
 
 .link {
@@ -73,8 +79,23 @@ ul {
   margin: 0;
 }
 
-.videogame {
+.checkbox-flex {
+  display: flex;
+  flex-wrap: wrap;
+}
+.checkbox-pair {
+  display: inline-table;
+  padding: 10px;
+background-color: rgb(10, 10, 30);
+margin-right: 20px;
+border-radius: 20px;
+  border-width: 5px;
+  border-color: rgb(20, 20, 40);
+  border-style: solid;
+  }
 
+.videogame {
+  display: block;
   max-width: 50%;
   padding: 20px;
   margin: auto;

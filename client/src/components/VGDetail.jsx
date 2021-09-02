@@ -33,7 +33,7 @@ function VGDetail() {
     <h3>Stores:</h3>
     <ul>{v.stores && v.stores.map(s => <li><a href={`https://${s.store.domain}`}>{`${s.store.name}`}</a></li>)}</ul>
   </div>
-  <Link to='/main'>Back</Link>
+  <Link to='/main'>Back to Main Page</Link>
 </div>
   }
 }
