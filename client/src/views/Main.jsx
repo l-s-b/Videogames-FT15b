@@ -15,14 +15,36 @@ function Main() {
 
   useEffect(() => {
     dispatch(getVideogames(pages, order, filter));
-  }, [dispatch, pages, order, filter]);
+  }, [/* dispatch,  */pages, order, filter]);
 
   //BRING VIDEOGAMES FROM REDUX
-  const videogames = useSelector((state) => state.videogames);
-  let prePagination = videogames;
-  /*let ordered = prePagination.sort();*/
-  let thisPage = videogames && videogames.slice(pages, pages + pageSize); // AND PAGE THEM.
+  const prePagination = useSelector((state) => state.videogames);
 
+  //SORTING FAUX REDUCER
+  switch(order) {
+    case "ratingAsc": prePagination.sort((a, b) => a.rating - b.rating);
+    console.log("RATING ASC: ", prePagination.sort((a, b) => a.rating - b.rating));
+    break;
+    case "ratingDesc": prePagination.sort((a, b) => b.rating - a.rating);
+    console.log("RATING DESC: ", prePagination.sort((a, b) => b.rating - a.rating));
+    break;
+    case "nameAsc": prePagination.sort(function (a, b) {
+      if (a.name < b.name) { return 1; }
+      if (a.name > b.name) { return -1; }
+      return 0; // if (a.name === b.name)
+    });
+    case "nameDesc": prePagination.sort(function (a, b) {
+      if (b.name > a.name) { return 1; }
+      if (b.name < a.name) { return -1; }
+      return 0; // if (a.name === b.name)
+    });
+    default: break;
+    }
+
+    //PAGINATION REDUCER
+  let thisPage = prePagination && prePagination.slice(pages, pages + pageSize); // AND PAGE THEM.
+
+  // LIST REFRESHER
   const handleReset = (e) => {
      e.preventDefault();
      dispatch(getVideogames(pages, order, filter));
@@ -35,9 +57,9 @@ function Main() {
   }
 
   //SORTING
-  const handleOrder   = (e) => {
+  const handleSort = (e) => {
     e.preventDefault();
-    setOrder(e.target.value);
+setOrder(e.target.value);
   }
 
   //PAGINATION
@@ -51,18 +73,16 @@ function Main() {
   };
   const pgUp = (e) => {
     e.preventDefault();
-    if (pages + pageSize > videogames.length) {
+    if (pages + pageSize > prePagination.length) {
       setPages(pages);
     } else {
       setPages(pages + pageSize);
     }
   };
 
+  //RENDERING
   return (
     <div className="main">
-      <h1>This is Henry Games Main.</h1>
-
-      {/* COMMENT LIKE THIS INSIDE JSX. */}
       {/* LOADING GIF */}
       {!thisPage ? (
         <Loading /> //console.log(videogames.map (v => v)),
@@ -73,12 +93,12 @@ function Main() {
           <SearchBar />
            {/* SORT */}
           <div className="select">
-            <select defaultValue="">
+            <select onChange={handleSort} defaultValue="">
               <option value="" disabled> Sort by </option>
-              <option>Rating - 0.0 to 5.0</option>
-              <option>Rating - 5.0 to 0.0</option>
-              <option>Name - A to Z</option>
-              <option>Name - Z to A</option>
+              <option value="ratingAsc">Rating - 0.0 to 5.0</option>
+              <option value="ratingDesc">Rating - 5.0 to 0.0</option>
+              <option value="nameAsc">Name - A to Z</option>
+              <option value="nameDesc"> Name - Z to A</option>
             </select>
           </div>
           {/* ORIGIN FILTER */}
@@ -97,7 +117,7 @@ function Main() {
           <input
             type="button"
             onClick={pgUp}
-            disabled={pages + pageSize >= videogames.length}
+            disabled={pages + pageSize >= prePagination.length}
             value=">"
           />
           {/*Get all videogames from backend (including preloaded and created), then only display what I need to.*/}
