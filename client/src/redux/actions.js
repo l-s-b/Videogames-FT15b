@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React from 'react';
 import OtherError from '../components/OtherError';
+import Error404 from '../components/Error404';
 
 export const GET_ALL_GAMES = "GET_ALL_GAMES";
 export const GET_GAME_BY_ID = "GET_GAME_BY_ID";
@@ -45,7 +46,15 @@ export function getGamesByName(name) {
                     type: GET_GAMES_BY_NAME,
                     payload: response.data,
                 })
-            })
+            }).catch(e => {
+                if (e.res && e.res.status === '404') { return < Error404 /> }
+                else  { return < OtherError /> }
+                console.error(e);
+               dispatch({
+                   type: GET_GAMES_BY_NAME,
+                   payload: null
+               })
+           })
         }
 };
 

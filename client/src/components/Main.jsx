@@ -4,6 +4,7 @@ import { clearList, getVideogames } from "../redux/actions";
 import { Link } from "react-router-dom";
 import Loading from "./Loading";
 import SearchBar from "./SearchBar";
+import Error404 from "./Error404";
 
 function Main() {
   const dispatch = useDispatch();
@@ -76,7 +77,8 @@ function Main() {
             value=">"
           />
           {/*Get all videogames from backend (including preloaded and created), then only display what I need to.*/}
-          {thisPage.map((v) => (
+          {console.log(thisPage)};
+           {Array.isArray(thisPage) ? thisPage.map((v) => (
             <div className="videogame">
               <Link className="link" to={`main/videogame/${v.id}`}>
                 <h2>{v.name}</h2>
@@ -95,7 +97,8 @@ function Main() {
                 </p>
               </Link>
             </div>
-          ))}
+          ))
+        : <Error404 />}
         </div>
       )}
     </div>

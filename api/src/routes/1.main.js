@@ -9,7 +9,8 @@ const { Videogame, Genre } = require("../db.js"); // Importing DB table
 
 // M A I N   R O U T E (async style) (100 items)
 // With while loop:
-const main = router.get('/videogames', async (req, res) => {
+module.exports = router.get('/videogames', getPromise = async (req, res) => {
+    while(true) {
     let { name, genre, created } = req.query;
         try { // FIRST, GET ALL 100 ITEMS.
             let finalList = [];
@@ -65,12 +66,10 @@ if (created) { switch (created) {
         } catch(e) { // Error yet to work out. Still works, though.
             if (e.code === 'ECONNRESET') {
              console.log("Connection error. Retrying...");
-             return main;
              } else console.error(e);
         };
+    }
 });
-
-module.exports = main;
 // Without while loop:
 /*
 router.get('/games', async (req, res) => {
