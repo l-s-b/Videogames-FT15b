@@ -1,4 +1,4 @@
-import { GET_ALL_GAMES, GET_GAME_BY_ID, GET_ALL_GENRES, POST_CUSTOM_GAME, } from './actions';
+import { GET_ALL_GAMES, GET_GAME_BY_ID, GET_ALL_GENRES, GET_GAMES_BY_NAME } from './actions';
 const initialState = {
     videogames: undefined,
     gameByID: undefined,
@@ -28,16 +28,27 @@ function reducer(state = initialState, action) {
                 genres: action.payload // FILTER HERE
             }
         }
+        case GET_GAMES_BY_NAME: {
+            return {
+                ...state,
+                videogames: action.payload
+            }
+        }
         case GET_GAME_BY_ID: {
             return {
                 ...state,
                 gameByID: action.payload
             }
         }
-        case POST_CUSTOM_GAME: {
-            return { ...state, }
-        }
-
+       /*  case RATING_SORT: {
+            let sortedArr = action.payload.direction === "asc" ?
+            sortAsc(state.videogames, 'rating') :
+            sortDesc(state.videogames, 'rating');
+            return {
+                ...state,
+                videogames: sortedArr,
+            };
+        } */
          default: { return state; }
     }
 }

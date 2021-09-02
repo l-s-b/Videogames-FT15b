@@ -4,7 +4,10 @@ import OtherError from '../components/OtherError';
 
 export const GET_ALL_GAMES = "GET_ALL_GAMES";
 export const GET_GAME_BY_ID = "GET_GAME_BY_ID";
+export const GET_GAMES_BY_NAME = "GET_GAMES_BY_NAME";
 export const GET_ALL_GENRES = "GET_ALL_GENRES";
+export const RATING_SORT = "RATING_SORT";
+
 export const POST_CUSTOM_GAME = "POST_CUSTOM_GAME";
 
 // CREATE MORE ACTIONS WHEN NECESSARY
@@ -34,14 +37,26 @@ export function getVideogames() {
     }
 };
 
+export function getGamesByName(name) {
+    return (dispatch) => {
+        axios.get(`http://localhost:3001/videogames?name=${name}`)
+            .then(response => {
+                dispatch({
+                    type: GET_GAMES_BY_NAME,
+                    payload: response.data,
+                })
+            })
+        }
+};
+
 // GET Videogame detail action (Promise style)
 export function getVideogame(id) {
     return (dispatch) => {
         axios.get(`http://localhost:3001/videogame/${id}`)
-            .then(res => {
+            .then(response => {
                 dispatch({
                     type: GET_GAME_BY_ID,
-                    payload: res.data,
+                    payload: response.data,
                 })
             }).catch(e => {
              if(e.res && e.res.status !== '404') {return < OtherError /> }
@@ -70,15 +85,15 @@ export function clearList() {
    }
 };
 
-//POST Videogame action (Promise style)(NOT TESTED YET)
-/*
-export function postVideogame(values) {
-
+/* // Sort list action (Promise style)
+export function sortByRating() {
     return (dispatch) => {
-        axios.post('http://localhost:3001/videogames', values)
+        axios.get('http://localhost:3001/videogames')
             .then(response => {
-                dispatch(getVideogames());
+                dispatch({
+                    type: RATING_SORT,
+                    payload: response.data,
+                })
             })
     }
-};
-*/
+}; */

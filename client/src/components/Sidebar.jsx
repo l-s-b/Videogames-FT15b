@@ -1,1 +1,0 @@
-// All filters will be put here (right side of the screen. Ideally, with animated appearance)
