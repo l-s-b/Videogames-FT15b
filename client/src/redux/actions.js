@@ -20,7 +20,7 @@ export function getGenres() {
                     type: GET_ALL_GENRES,
                     payload: response.data,
                 })
-            })
+            }).catch (e => e.code === "ECONNRESET" ? getGenres() : console.error(e));
     }
 };
 
@@ -33,7 +33,7 @@ export function getVideogames() {
                     type: GET_ALL_GAMES,
                     payload: response.data,
                 })
-            })
+            }).catch (e => e.code === "ECONNRESET" ? getVideogames() : console.error(e));
     }
 };
 

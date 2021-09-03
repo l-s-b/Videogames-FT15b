@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getVideogames } from "../redux/actions";
+import { getVideogames, getGenres } from "../redux/actions";
 import { Link } from "react-router-dom";
 import Loading from "../components/Loading";
 import SearchBar from "../components/SearchBar";
@@ -10,15 +10,17 @@ function Main() {
   const dispatch = useDispatch();
   const pageSize = 15;
   const [pages, setPages] = useState(0);
-  const [genreFilter, setGenreFilter] = useState("");
+  const [genreFilter, setGenreFilter] = useState(null);
   const [originFilter, setOriginFilter] = useState("");
   const [order, setOrder] = useState("");
 
   useEffect(() => {
     dispatch(getVideogames(pages, order, genreFilter, originFilter));
-  }, [dispatch, pages, order, genreFilter, originFilter]);
+    dispatch(getGenres());
+  }, [pages, order, genreFilter, originFilter]);
 
-  //BRING VIDEOGAMES FROM REDUX
+  //BRING VIDEOGAMES (and genres! For the genre filter) FROM REDUX
+  const foundGenres = useSelector((state) => state.genres);
   let prePagination = useSelector((state) => state.videogames);
 
   //SORTING FAUX REDUCER
@@ -73,6 +75,11 @@ function Main() {
       break;
     default: break;
   }
+  // GENRE FAUX REDUCER
+console.log(genreFilter);
+  if (prePagination && genreFilter) {
+    prePagination = prePagination.filter(game => game["genres"] && game["genres"].some(gg => gg.name === genreFilter));
+  };
 
   //PAGINATION REDUCER
   let thisPage = prePagination && prePagination.slice(pages, pages + pageSize); // AND PAGE THEM.
@@ -127,11 +134,7 @@ function Main() {
         <Loading /> //console.log(videogames.map (v => v)),
       ) : (
         <div className="pag-map">
-          <input
-            type="button"
-            onClick={handleReset}
-            value="RESET ALL QUERIES"
-          />
+          <input type="button" onClick={handleReset} value="RESET ALL QUERIES" />
           <SearchBar />
           {/* SORT */}
           <div className="select">
@@ -143,6 +146,7 @@ function Main() {
               <option value="nameDesc"> Name - Z to A</option>
             </select>
           </div>
+
           {/* ORIGIN FILTER */}
           <div className="select">
             <select onChange={handleOrigin} defaultValue="">
@@ -152,20 +156,27 @@ function Main() {
               <option value="both">All</option>
             </select>
           </div>
+
+          {/* GENRE FILTER */}
+          <div className="select">
+            <select onChange={handleGenre} defaultValue="">
+            <option value="" disabled>Filter by genre...</option>
+                {foundGenres.map(g =>
+               <option value={`${g.name}`}>{`${g.name}`}</option>
+                )}
+            </select>
+          </div>
+
           {/* PAGINATION BUTTONS ON TOP */}
           <input type="button" onClick={pgDn} disabled={pages <= 0} value="<" />
           <span>
             Page {Math.ceil((pages + pageSize) / pageSize)}
             (results {pages + 1}-{pages + thisPage.length})
           </span>
-          <input
-            type="button"
-            onClick={pgUp}
-            disabled={pages + pageSize >= prePagination.length}
-            value=">"
-          />
+          <input type="button" onClick={pgUp}
+            disabled={pages + pageSize >= prePagination.length} value=">"/>
+
           {/*Get all videogames from backend (including preloaded and created), then only display what I need to.*/}
-          {/* console.log(thisPage); */}
           {Array.isArray(thisPage) ? (
             thisPage.map((v) => (
               <div className="box">
@@ -187,7 +198,7 @@ function Main() {
           ) : (
             <Error404 />
           )}
-          {/* PAGINATION BUTTONS ON TOP */}
+          {/* PAGINATION BUTTONS AT THE BOTTOM */}
           <input type="button" onClick={pgDn} disabled={pages <= 0} value="<" />
           <span>
             Page {Math.ceil((pages + pageSize) / pageSize)}
@@ -200,9 +211,10 @@ function Main() {
             value=">"
           />
         </div>
-      )}
+        )
+      }
     </div>
-  );
-}
+  )
+};
 
 export default Main;
