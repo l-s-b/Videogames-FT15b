@@ -37,7 +37,7 @@ module.exports = router.get('/videogames', getPromise = async (req, res) => {
                     game => game.name?.toLowerCase().includes(name) ||
                     game.slug?.includes(name));
                 nameFilter.length ?
-                res.json(nameFilter) :
+                res.json(nameFilter.slice(0, 15)) :
                 res.json("Sorry, no games by that name.");
                 return;
             } catch(e) {return console.error(e);}
@@ -63,8 +63,8 @@ if (created) { switch (created) {
 }
 
 // NO QUERIES:
-        return res.json(finalList);
-
+        return res.json(finalList/*.slice(0, 15)*/);
+// ERROR MANAGEMENT:
         } catch(e) { // Error yet to work out. Still works, though.
             if (e.code === 'ECONNRESET') {
              console.log("Connection error. Retrying...");

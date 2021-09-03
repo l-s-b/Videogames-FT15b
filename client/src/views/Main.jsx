@@ -7,13 +7,17 @@ import SearchBar from "../components/SearchBar";
 import Error404 from "../components/Error404";
 
 function Main() {
-  const dispatch = useDispatch();
+
+  //STATES
+
   const pageSize = 15;
   const [pages, setPages] = useState(0);
   const [genreFilter, setGenreFilter] = useState(null);
   const [originFilter, setOriginFilter] = useState("");
   const [order, setOrder] = useState("");
 
+  //HOOKS
+  const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getVideogames(pages, order, genreFilter, originFilter));
     dispatch(getGenres());
@@ -26,37 +30,37 @@ function Main() {
   //SORTING FAUX REDUCER
   switch (order) {
     case "ratingAsc":
-      prePagination.sort((a, b) => a.rating - b.rating);
+      prePagination && prePagination.sort((a, b) => a.rating - b.rating);
       console.log(
         "RATING ASC: ",
-        prePagination.sort((a, b) => a.rating - b.rating)
+        prePagination && prePagination.sort((a, b) => a.rating - b.rating)
       );
       break;
     case "ratingDesc":
-      prePagination.sort((a, b) => b.rating - a.rating);
+      prePagination && prePagination.sort((a, b) => b.rating - a.rating);
       console.log(
         "RATING DESC: ",
-        prePagination.sort((a, b) => b.rating - a.rating)
+        prePagination && prePagination.sort((a, b) => b.rating - a.rating)
       );
       break;
     case "nameAsc":
-      prePagination.sort((a, b) =>
+      prePagination && prePagination.sort((a, b) =>
         a.name > b.name ? 1 : b.name > a.name ? -1 : 0
       );
       console.log(
         "NAME ASC: ",
-        prePagination.sort((a, b) =>
+        prePagination && prePagination.sort((a, b) =>
           a.name > b.name ? 1 : b.name > a.name ? -1 : 0
         )
       );
       break;
     case "nameDesc":
-      prePagination
+      prePagination && prePagination
         .sort((a, b) => (a.name > b.name ? 1 : b.name > a.name ? -1 : 0))
         .reverse();
       console.log(
         "NAME DESC: ",
-        prePagination
+        prePagination && prePagination
           .sort((a, b) => (a.name > b.name ? 1 : b.name > a.name ? -1 : 0))
           .reverse()
       );
@@ -64,6 +68,7 @@ function Main() {
     default: break;
   }
 // ORIGIN FAUX REDUCER
+if (prePagination && prePagination.length && originFilter) {
   switch (originFilter) {
     case "true":
       console.log(prePagination.filter(g => g.created));
@@ -75,11 +80,13 @@ function Main() {
       break;
     default: break;
   }
+};
   // GENRE FAUX REDUCER
-console.log(genreFilter);
-  if (prePagination && genreFilter) {
+  if (prePagination && prePagination.length && genreFilter) {
+    if (genreFilter === "All") { prePagination; } else {
     prePagination = prePagination.filter(game => game["genres"] && game["genres"].some(gg => gg.name === genreFilter));
   };
+}
 
   //PAGINATION REDUCER
   let thisPage = prePagination && prePagination.slice(pages, pages + pageSize); // AND PAGE THEM.
@@ -130,7 +137,7 @@ console.log(genreFilter);
   return (
     <div className="main">
       {/* LOADING GIF */}
-      {!thisPage ? (
+      {thisPage === undefined || null ? (
         <Loading /> //console.log(videogames.map (v => v)),
       ) : (
         <div className="pag-map">
@@ -164,6 +171,7 @@ console.log(genreFilter);
                 {foundGenres.map(g =>
                <option value={`${g.name}`}>{`${g.name}`}</option>
                 )}
+            <option value="All" >All</option>
             </select>
           </div>
 
@@ -177,7 +185,7 @@ console.log(genreFilter);
             disabled={pages + pageSize >= prePagination.length} value=">"/>
 
           {/*Get all videogames from backend (including preloaded and created), then only display what I need to.*/}
-          {Array.isArray(thisPage) ? (
+          {Array.isArray(thisPage) && thisPage.length ? (
             thisPage.map((v) => (
               <div className="box">
                 <Link className="link" to={`main/videogame/${v.id}`}>
