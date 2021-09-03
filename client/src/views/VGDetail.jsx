@@ -35,20 +35,20 @@ function VGDetail() {
             <div>
               <h3>Genres:</h3>{" "}
               <ul>
-                {v.genres && v.genres.map((g) => g.name && <li>{`${g.name}`}</li>)}
+                {v.genres && v.genres.map((g) => g.name && <li key={`${g.id}`}>{`${g.name}`}</li>)}
                 </ul>
             </div>
             <div>
               <h3>Platforms: </h3>{" "}
               <ul>
-                {v.platforms && v.platforms.map((p) => <li>{`${p.platform.name}`}</li>)}
+                {v.platforms && v.platforms.map((p) => <li key={`${p.platform.id}`}>{`${p.platform.name}`}</li>)}
               </ul>
             </div>
             <div>
               <h3>Stores:</h3>
               <ul>
                 {v.stores && v.stores.map((s) => (
-                    <li>
+                    <li key={`${s.id}`}>
                       <a href={`https://${s.store.domain}`}>{`${s.store.name}`}</a>
                     </li>
                   ))}

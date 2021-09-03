@@ -7,11 +7,10 @@ export const GET_ALL_GAMES = "GET_ALL_GAMES";
 export const GET_GAME_BY_ID = "GET_GAME_BY_ID";
 export const GET_GAMES_BY_NAME = "GET_GAMES_BY_NAME";
 export const GET_ALL_GENRES = "GET_ALL_GENRES";
-export const RATING_SORT = "RATING_SORT";
 
 export const POST_CUSTOM_GAME = "POST_CUSTOM_GAME";
 
-// CREATE MORE ACTIONS WHEN NECESSARY
+// CREATE MORE ACTIONS IF/WHEN NECESSARY
 
 export function getGenres() {
     return (dispatch) => {
@@ -47,13 +46,13 @@ export function getGamesByName(name) {
                     payload: response.data,
                 })
             }).catch(e => {
-                if (e.res && e.res.status === '404') { return < Error404 /> }
-                else  { return < OtherError /> }
                 console.error(e);
-               dispatch({
-                   type: GET_GAMES_BY_NAME,
-                   payload: null
-               })
+                dispatch({
+                    type: GET_GAMES_BY_NAME,
+                    payload: null
+                });
+                if (e.res && e.res.status === '404') { return < Error404 /> }
+                else { return < OtherError /> }
            })
         }
 };
@@ -93,16 +92,3 @@ export function clearList() {
            payload: undefined
    }
 };
-
-/* // Sort list action (Promise style)
-export function sortByRating() {
-    return (dispatch) => {
-        axios.get('http://localhost:3001/videogames')
-            .then(response => {
-                dispatch({
-                    type: RATING_SORT,
-                    payload: response.data,
-                })
-            })
-    }
-}; */

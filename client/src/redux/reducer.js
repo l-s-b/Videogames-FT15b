@@ -2,7 +2,6 @@ import { GET_ALL_GAMES, GET_GAME_BY_ID, GET_ALL_GENRES, GET_GAMES_BY_NAME } from
 const initialState = {
     videogames: undefined,
     gameByID: undefined,
-    genre: undefined,
     genres: undefined,
     values: { // POST method
         name: "",
