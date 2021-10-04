@@ -49,11 +49,17 @@ function PostGame() {
 
     function handleSubmit(e) {
         e.preventDefault();
+
+        //Verificar si todo está completo.
+        // Si no, alertar y no postear.
+        if (values.name && values.description && values.released && values.rating
+            && values.genre_list && values.platforms) {
         axios.post('http://localhost:3001/videogame', values)
             .then(response => {
                 push(response.data.route);
                 alert("New custom game successfully posted!");
             }).catch(e => e.code === "ECONNRESET" ? handleSubmit() : console.error(e));
+        } else {alert ('No. Go back and complete the form.')}
 
         }
 

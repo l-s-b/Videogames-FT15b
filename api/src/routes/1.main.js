@@ -18,7 +18,7 @@ module.exports = router.get('/videogames', getPromise = async (req, res) => {
         let previous = await axios.get(`https://api.rawg.io/api/games?key=${API_KEY}`);
         finalList = [...previous.data.results];
         while (finalList.length < 100) {
-            let next = await axios.get(previous.data.next);
+            let next = await axios.get(previous.data.next); // REFACTOR TO WAIT LESS
             finalList = [...finalList, ...next.data.results,]
             previous = next;
         }
