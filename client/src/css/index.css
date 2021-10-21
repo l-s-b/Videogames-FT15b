@@ -19,9 +19,9 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-.h2 {
-  margin-top: 0;
-  padding-top: 0;
+h2 {
+  margin: 0;
+  padding: 0;
 }
 
 code {

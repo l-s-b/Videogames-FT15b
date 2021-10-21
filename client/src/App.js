@@ -1,5 +1,6 @@
 import React from "react";
 import "./css/App.css";
+import "./css/Cards.css";
 import "./css/NavBar.css";
 import "./css/Footer.css";
 import NavBar from "./components/NavBar";

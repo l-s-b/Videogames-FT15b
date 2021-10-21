@@ -184,26 +184,30 @@ if (prePagination && prePagination.length && originFilter) {
           <input type="button" onClick={pgUp}
             disabled={pages + pageSize >= prePagination.length} value=">"/>
 
-          {/*Get all videogames from backend (including preloaded and created), then only display what I need to.*/}
-          {Array.isArray(thisPage) && thisPage.length ? (
-            thisPage.map((v) => (
-              <div className="box">
-                <Link className="link" to={`main/videogame/${v.id}`}>
-                  <h2>{v.name}</h2>
-                  <img className="picture" src={v.background_image} alt="" />
-                  <ul>
-                    {v.genres && v.genres.map((g) => <li key={`${g.id}`}>{`${g.name}`}</li>)}
+          {/*Get all videogames from backend (including preloaded and created),
+          then only display what I need to.*/}
+          {Array.isArray(thisPage) && thisPage.length ?
+          <div className="cards">
+            {thisPage.map((v) => (
+              <Link className="link" to={`main/videogame/${v.id}`}>
+                <div className="card">
+                  <div className="cardTitle">
+                    <h2 className="title">{v.name}</h2>
+                    <div className="gradient" />
+                  </div>
+                  <img className="cardPicture" src={v.background_image} alt="" />
+                  <ul className="cardGenres">
+                    {v.genres && v.genres.map((g) =>
+                      <li className="eachGenre" key={`${g.id}`}>{`${g.name}`}</li>
+                    )}
                   </ul>
-                  <p>
-                    {v.rating}
-                    <span role="img" aria-label="star">
-                      ⭐
-                    </span>
+                  <p className="rating">
+                    {v.rating}<span role="img" aria-label="star">⭐</span>
                   </p>
-                </Link>
-              </div>
-            ))
-          ) : (
+                </div>
+              </Link>
+            ))}
+          </div> : (
             <Error404 />
           )}
           {/* PAGINATION BUTTONS AT THE BOTTOM */}

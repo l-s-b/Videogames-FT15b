@@ -27,7 +27,7 @@ function VGDetail() {
         return (
           <div className="box">
             <h2>{`${v.name}`}</h2>
-            <img className="picture" src={v.background_image} alt="" />
+            <img className="detailPicture" src={v.background_image} alt="" />
             <p>Rating: {v.rating}<span role="img" aria-label="star">⭐</span></p>
             {/*Super weird way to unconvert string into HTML actual tags*/}
             <div dangerouslySetInnerHTML={{ __html: v.description }} />

@@ -1,3 +1,9 @@
+:root {
+  --bg-img: url('https://images.pexels.com/photos/194511/pexels-photo-194511.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940');
+  --slow: 600ms;
+  --quick: 350ms;
+}
+
 .App {
   position: relative;
   text-align: center;
@@ -7,24 +13,23 @@
   padding-bottom: 10px;
 }
 
-.wrap {
-padding-bottom: 3rem;
+.main {
+  margin: 20px 0;
 }
 
-.picture {
-  min-height: 15rem;
-  max-height: 15rem;
+.wrap {
+padding-bottom: 3rem;
 }
 
 .h2 {
   font-size: 4rem;
   color: antiquewhite;
-  padding-top: 10%;
-  margin: 0%;
+  margin: 0;
+  padding: 0;
 }
 
 .LP {
-    background-image: url('https://images.pexels.com/photos/194511/pexels-photo-194511.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940');
+    background-image: var(--bg-img);
     background-size: cover;
     width: 100%;
     height: max-content;
@@ -48,12 +53,15 @@ border-width: 5px;
 border-color: rgb(30, 30, 50);
 margin: 40px;
 opacity: 80%;
+transform: scale(1);
+transition-duration: var(--quick);
 }
 
 .btn:hover {
 transform: scale(1.2);
 color: aquamarine;
-transition-duration: 300ms;
+opacity: 1;
+transition-duration: var(--slow);
 }
 
 .link {
@@ -79,6 +87,25 @@ ul {
   margin: 0;
 }
 
+.box {
+  display: block;
+  max-width: 50vw;
+  padding: 20px;
+  margin: auto;
+  margin-bottom: 10px;
+  background-color: rgb(30, 30, 50);
+  color: antiquewhite;
+  border-radius: 20px;
+  border-width: 5px;
+  border-color: rgb(20, 20, 40);
+  border-style: solid;
+}
+
+.detailPicture {
+  max-width: 100%;
+  height: auto;
+}
+
 .checkbox-flex {
   display: flex;
   flex-wrap: wrap;
@@ -93,20 +120,6 @@ border-radius: 20px;
   border-color: rgb(20, 20, 40);
   border-style: solid;
   }
-
-.box {
-  display: block;
-  max-width: 50%;
-  padding: 20px;
-  margin: auto;
-  margin-bottom: 10px;
-  background-color: rgb(30, 30, 50);
-  color: antiquewhite;
-  border-radius: 20px;
-  border-width: 5px;
-  border-color: rgb(20, 20, 40);
-  border-style: solid;
-}
 
 .waitgif {
   max-width: 25%;
