@@ -1,6 +1,6 @@
 const { Router } = require("express");
 const router = Router();
-const axios = require("axios"); // Requiring Backend API request libraries
+const axios = require("axios");
 require('dotenv').config();
 const { API_KEY } = process.env; // Importing API KEY
 const { Videogame, Genre, vg_genres } = require("../db.js"); // Importing DB table
@@ -35,7 +35,6 @@ module.exports = router.post('/videogame', async (req, res) => {
                 platforms: submitted.platforms, // Same here.
             }
         });
-        console.log(justAdded ? "Game successfully added." : "Already found.");
         // E/R SETTING: Use 'setGenres' or 'addGenres' Sequelize methods
         await dbGame.setGenres(submitted.genre_list);
         // I reckon this is optional, but useful for Insomnia/Postman verification:

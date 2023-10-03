@@ -31,39 +31,19 @@ function Main() {
   switch (order) {
     case "ratingAsc":
       prePagination && prePagination.sort((a, b) => a.rating - b.rating);
-      console.log(
-        "RATING ASC: ",
-        prePagination && prePagination.sort((a, b) => a.rating - b.rating)
-      );
       break;
     case "ratingDesc":
       prePagination && prePagination.sort((a, b) => b.rating - a.rating);
-      console.log(
-        "RATING DESC: ",
-        prePagination && prePagination.sort((a, b) => b.rating - a.rating)
-      );
       break;
     case "nameAsc":
       prePagination && prePagination.sort((a, b) =>
         a.name > b.name ? 1 : b.name > a.name ? -1 : 0
-      );
-      console.log(
-        "NAME ASC: ",
-        prePagination && prePagination.sort((a, b) =>
-          a.name > b.name ? 1 : b.name > a.name ? -1 : 0
-        )
       );
       break;
     case "nameDesc":
       prePagination && prePagination
         .sort((a, b) => (a.name > b.name ? 1 : b.name > a.name ? -1 : 0))
         .reverse();
-      console.log(
-        "NAME DESC: ",
-        prePagination && prePagination
-          .sort((a, b) => (a.name > b.name ? 1 : b.name > a.name ? -1 : 0))
-          .reverse()
-      );
       break;
     default: break;
   }
@@ -71,11 +51,9 @@ function Main() {
 if (prePagination && prePagination.length && originFilter) {
   switch (originFilter) {
     case "true":
-      console.log(prePagination.filter(g => g.created));
       prePagination = prePagination.filter(g => g.created);
       break;
     case "false":
-      console.log(prePagination.filter(g => !g.created));
       prePagination = prePagination.filter(g => !g.created);
       break;
     default: break;
@@ -138,7 +116,7 @@ if (prePagination && prePagination.length && originFilter) {
     <div className="main">
       {/* LOADING GIF */}
       {thisPage === undefined || null ? (
-        <Loading /> //console.log(videogames.map (v => v)),
+        <Loading />
       ) : (
         <div className="pag-map">
           <input type="button" onClick={handleReset} value="RESET ALL QUERIES" />

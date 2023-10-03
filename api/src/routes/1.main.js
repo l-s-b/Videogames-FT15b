@@ -24,10 +24,8 @@ module.exports = router.get('/videogames', getPromise = async (req, res) => {
         }
         // Now adding videogames from DB:
         const db = await Videogame.findAll({ include: Genre }); // Genre connection
-        // console.log(db);
         // EXTRA: Adding a small set of preloaded games
         finalList = [...db, ...finalList, ...preloaded];
-        // console.log('List count: ', finalList.length);
 
     // NAME QUERY (WORKING!)
         if(name) {
@@ -44,7 +42,6 @@ module.exports = router.get('/videogames', getPromise = async (req, res) => {
     }
 // GENRE QUERY (Solve later, working poorly)
     if(genre) {
-        console.log(typeof genre.toLowerCase());
         try {
             const genreList = "caca";
             genreFilter && genreFilter.length ?
@@ -93,8 +90,7 @@ router.get('/games', async (req, res) => {
 
         ];
         res.json([finalList]);
-        console.log('List count: ', finalList.length);
-        } catch(error) {console.log(error)};
+        } catch(error) {console.error(error)};
 
 });*/
 

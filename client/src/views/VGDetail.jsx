@@ -21,7 +21,6 @@ function VGDetail() {
     case undefined: return <img src={waitgif} alt="Undefined. Sorry." />;
     case null: return <Error404 />;
     default: if (!v.name) {
-        // console.log(v);
         return <Error404 />;
       } else {
         return (
